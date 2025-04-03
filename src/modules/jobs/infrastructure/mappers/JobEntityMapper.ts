@@ -14,13 +14,14 @@ export class JobEntityMapper {
         });
     }
 
-    private static mapEmploymentStatusToJobType(type: string): JobTypeEnum {
-        if (type === APIEmploymentStatus.PART_TIME) {
-            return JobTypeEnum.PART_TIME;
+    private static mapEmploymentStatusToJobType(type: APIEmploymentStatus): JobTypeEnum {
+        switch (type) {
+            case APIEmploymentStatus.FULL_TIME:
+                return JobTypeEnum.FULL_TIME;
+            case APIEmploymentStatus.PART_TIME:
+                return JobTypeEnum.PART_TIME;
+            case APIEmploymentStatus.CONTRACT:
+                return JobTypeEnum.CONTRACT;
         }
-        if (type === APIEmploymentStatus.CONTRACT) {
-            return JobTypeEnum.CONTRACT;
-        }
-        return JobTypeEnum.FULL_TIME;
     }
 }
