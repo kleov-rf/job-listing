@@ -40,6 +40,6 @@ export class Job {
     }
 
     companyNameValue() {
-        throw new Error('Method not implemented.')
+        return this.companyName.getValue()
     }
 }
