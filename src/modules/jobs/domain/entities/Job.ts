@@ -42,4 +42,8 @@ export class Job {
     companyNameValue() {
         return this.companyName.getValue()
     }
+
+    locationValue() {
+        throw new Error("Method not implemented.");
+    }
 }
