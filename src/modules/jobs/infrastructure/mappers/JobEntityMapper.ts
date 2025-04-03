@@ -18,6 +18,9 @@ export class JobEntityMapper {
         if (type === APIEmploymentStatus.PART_TIME) {
             return JobTypeEnum.PART_TIME;
         }
+        if (type === APIEmploymentStatus.CONTRACT) {
+            return JobTypeEnum.CONTRACT;
+        }
         return JobTypeEnum.FULL_TIME;
     }
 }
