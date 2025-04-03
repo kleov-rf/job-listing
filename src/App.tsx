@@ -1,3 +1,5 @@
+import { JobsDashboard } from "@/sections/jobs/JobsDashboard"
+
 function App() {
     return (
         <div className="container mx-auto px-4 py-8">
@@ -5,6 +7,7 @@ function App() {
                 <h1 className="text-3xl font-bold">Job Listings</h1>
             </header>
             <main>
+                <JobsDashboard />
             </main>
         </div>
     )
