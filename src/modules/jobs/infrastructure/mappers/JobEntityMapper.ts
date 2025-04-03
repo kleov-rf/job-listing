@@ -1,4 +1,4 @@
-import {APIJobDTO} from "@/modules/jobs/infrastructure/dtos/APIJobResponseDTO.ts";
+import {APIEmploymentStatus, APIJobDTO} from "@/modules/jobs/infrastructure/dtos/APIJobResponseDTO.ts";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {JobTypeEnum} from "@/modules/jobs/domain/value-objects/JobType.ts";
 
@@ -15,6 +15,9 @@ export class JobEntityMapper {
     }
 
     private static mapEmploymentStatusToJobType(type: string): JobTypeEnum {
+        if (type === APIEmploymentStatus.PART_TIME) {
+            return JobTypeEnum.PART_TIME;
+        }
         return JobTypeEnum.FULL_TIME;
     }
 }
