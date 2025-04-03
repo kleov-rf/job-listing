@@ -1,6 +1,7 @@
 export enum APIEmploymentStatus {
     FULL_TIME = 'Full-time',
     PART_TIME = 'Part-time',
+    CONTRACT = 'Contract',
 }
 
 export interface APIJobDTO {
