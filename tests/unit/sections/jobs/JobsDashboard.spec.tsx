@@ -1,4 +1,3 @@
-import React from "react";
 import {render} from "@testing-library/react";
 import {describe, expect, it, vi} from "vitest";
 import {JobContextType, JobContext} from "../../../../src/sections/context/JobContext";
