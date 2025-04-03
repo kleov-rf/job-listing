@@ -16,4 +16,17 @@ describe('Job', () => {
 
         expect(job.idValue()).toEqual(jobId)
     })
+    it('should return title value', () => {
+        const jobTitle = 'Software Engineer';
+        const job = Job.create({
+            id: '1',
+            title: jobTitle,
+            description: 'Develop software applications',
+            location: 'Remote',
+            type: JobTypeEnum.FULL_TIME,
+            companyName: 'Tech Company',
+        })
+
+        expect(job.titleValue()).toEqual(jobTitle)
+    })
 })
