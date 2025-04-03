@@ -27,7 +27,7 @@ test.describe('Job Listings', () => {
       expect(title).not.toBe('')
 
       const company = await card
-          .locator('[data-testid="company-name"]')
+          .locator('[data-testid="job-company-name"]')
           .textContent()
       expect(company).not.toBeNull()
       expect(company).not.toBe('')
