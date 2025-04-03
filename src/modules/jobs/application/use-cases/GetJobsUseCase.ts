@@ -4,6 +4,6 @@ export class GetJobsUseCase {
     constructor(private readonly jobRepository: JobRepository) {}
 
     async execute(): Promise<void> {
-        throw new Error('Method not implemented.');
+        await this.jobRepository.findAll()
     }
 }
