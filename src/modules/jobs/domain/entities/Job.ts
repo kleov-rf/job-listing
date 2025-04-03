@@ -30,4 +30,8 @@ export class Job {
             new JobDescription(description)
         )
     }
+
+    idValue(): string {
+        throw new Error('Not implemented.')
+    }
 }
