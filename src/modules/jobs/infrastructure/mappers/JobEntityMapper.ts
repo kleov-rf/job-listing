@@ -14,7 +14,11 @@ export class JobEntityMapper {
         });
     }
 
-    private static mapEmploymentStatusToJobType(type: APIEmploymentStatus): JobTypeEnum {
+    private static mapEmploymentStatusToJobType(type: APIEmploymentStatus | undefined): JobTypeEnum {
+        if (!type) {
+            return JobTypeEnum.NOT_DEFINED;
+        }
+
         switch (type) {
             case APIEmploymentStatus.FULL_TIME:
                 return JobTypeEnum.FULL_TIME;
