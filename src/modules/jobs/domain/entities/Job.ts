@@ -32,6 +32,6 @@ export class Job {
     }
 
     idValue(): string {
-        throw new Error('Not implemented.')
+        return this.id.getValue()
     }
 }
