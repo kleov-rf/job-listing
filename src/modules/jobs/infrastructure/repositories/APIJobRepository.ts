@@ -9,11 +9,7 @@ export class APIJobRepository implements JobRepository {
 
     async findAll(): Promise<Job[]> {
         const {data} = await this.fetchJobs() as APIJobsResponseDTO;
-
-        data.forEach(apiJob => {
-            JobEntityMapper.toDomain(apiJob)
-        })
-        return []
+        return data.map(JobEntityMapper.toDomain)
     }
 
     private async fetchJobs() {
