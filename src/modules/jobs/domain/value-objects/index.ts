@@ -1,0 +1,6 @@
+export { CompanyName } from './CompanyName'
+export { JobDescription } from './JobDescription'
+export { JobId } from './JobId'
+export { JobTitle } from './JobTitle'
+export { JobType, JobTypeEnum } from './JobType'
+export { JobLocation } from './JobLocation.ts'

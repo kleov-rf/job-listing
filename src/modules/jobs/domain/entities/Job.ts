@@ -1,10 +1,5 @@
 import {Primitives} from "@codelytv/primitives-type";
-import {JobId} from "@/modules/jobs/domain/value-objects/JobId.ts";
-import {JobTitle} from "@/modules/jobs/domain/value-objects/JobTitle.ts";
-import {CompanyName} from "@/modules/jobs/domain/value-objects/CompanyName.ts";
-import {JobLocation} from "@/modules/jobs/domain/value-objects/JobLocation.ts";
-import {JobType} from "@/modules/jobs/domain/value-objects/JobType.ts";
-import {JobDescription} from "@/modules/jobs/domain/value-objects/JobDescription.ts";
+import {CompanyName, JobDescription, JobId, JobLocation, JobTitle, JobType} from "@/modules/jobs/domain/value-objects";
 
 export class Job {
     private constructor(
