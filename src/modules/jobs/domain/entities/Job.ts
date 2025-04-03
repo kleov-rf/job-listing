@@ -38,4 +38,8 @@ export class Job {
     titleValue() {
         return this.title.getValue()
     }
+
+    companyNameValue() {
+        throw new Error('Method not implemented.')
+    }
 }

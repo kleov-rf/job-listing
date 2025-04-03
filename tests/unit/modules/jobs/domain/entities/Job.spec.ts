@@ -29,4 +29,17 @@ describe('Job', () => {
 
         expect(job.titleValue()).toEqual(jobTitle)
     })
+    it('should return company name value', () => {
+        const companyName = 'Tech Company';
+        const job = Job.create({
+            id: '1',
+            title: 'Software Engineer',
+            description: 'Develop software applications',
+            location: 'Remote',
+            type: JobTypeEnum.FULL_TIME,
+            companyName,
+        })
+
+        expect(job.companyNameValue()).toEqual(companyName)
+    })
 })
