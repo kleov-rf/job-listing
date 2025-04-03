@@ -1,3 +1,11 @@
+import {ValueObject} from "@/modules/jobs/domain/value-objects/ValueObject.ts";
+
 export enum JobTypeEnum {
     FULL_TIME = 'FULL_TIME',
+}
+
+export class JobType extends ValueObject<JobTypeEnum> {
+    constructor(readonly value: JobTypeEnum) {
+        super(value);
+    }
 }

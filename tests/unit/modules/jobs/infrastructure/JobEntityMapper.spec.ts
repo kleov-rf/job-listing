@@ -28,7 +28,7 @@ describe('JobEntityMapper', () => {
                 title: jobTitle,
                 companyName: companyName,
                 location: location,
-                type: JobTypeEnum.FULL_TIME.toString(),
+                type: JobTypeEnum.FULL_TIME,
                 description: description,
             })
             expect(result).toEqual(expectedDomainJob)
