@@ -3,6 +3,6 @@ import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 
 export class JobEntityMapper {
     static toDomain(apiJob: APIJobDTO): Job {
-        return;
+        return null;
     }
 }
