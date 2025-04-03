@@ -36,6 +36,6 @@ export class Job {
     }
 
     titleValue() {
-        throw new Error('Method not implemented.')
+        return this.title.getValue()
     }
 }
