@@ -48,6 +48,6 @@ export class Job {
     }
 
     typeValue() {
-        throw new Error("Method not implemented.");
+        return this.type.getValue()
     }
 }
