@@ -15,8 +15,8 @@ export const JobsDashboard: () => JSX.Element = () => {
     })
 
     const jobCards = useMemo(() => {
-        return jobs.map(() => (
-            <div data-testid="job-card"></div>
+        return jobs.map(job => (
+            <div key={job.idValue()} data-testid="job-card"></div>
         ));
     }, [jobs]);
 
