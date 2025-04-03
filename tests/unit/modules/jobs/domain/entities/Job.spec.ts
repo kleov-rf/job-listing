@@ -55,4 +55,17 @@ describe('Job', () => {
 
         expect(job.locationValue()).toEqual(jobLocation)
     })
+    it('should return type value', () => {
+        const jobType = JobTypeEnum.FULL_TIME;
+        const job = Job.create({
+            id: '1',
+            title: 'Software Engineer',
+            description: 'Develop software applications',
+            location: 'Remote',
+            type: jobType,
+            companyName: 'Tech Company',
+        })
+
+        expect(job.typeValue()).toEqual(jobType)
+    })
 })
