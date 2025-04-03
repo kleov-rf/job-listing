@@ -1,6 +1,7 @@
-import {JSX, useEffect, useMemo, useState} from "react";
+import {JSX, useEffect, useState} from "react";
 import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
+import {JobList} from "@/sections/jobs/components/JobList.tsx";
 
 export const JobsDashboard: () => JSX.Element = () => {
     const [jobs, setJobs] = useState<Job[]>([]);
@@ -14,11 +15,5 @@ export const JobsDashboard: () => JSX.Element = () => {
         fetchJobs();
     })
 
-    const jobCards = useMemo(() => {
-        return jobs.map(job => (
-            <div key={job.idValue()} data-testid="job-card"></div>
-        ));
-    }, [jobs]);
-
-    return <>{ jobCards }</>;
+    return <JobList jobs={jobs} />;
 }
