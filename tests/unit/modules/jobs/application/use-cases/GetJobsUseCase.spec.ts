@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from "vitest";
-import {GetJobsUseCase} from "../../../../../../src/modules/jobs/application/use-cases/GetJobsUseCase";
-import {JobRepository} from "../../../../../../src/modules/jobs/domain/repositories/JobRepository";
+import {GetJobsUseCase} from "@/modules/jobs/application/use-cases/GetJobsUseCase";
+import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository";
 
 describe('GetJobsUseCase', () => {
     it('should call repository to find all jobs', async () => {

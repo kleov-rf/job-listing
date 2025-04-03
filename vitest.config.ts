@@ -8,6 +8,11 @@ const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
@@ -18,11 +23,6 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       exclude: ['node_modules/', 'tests/setup.ts'],
-    },
-  },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
     },
   },
 })
