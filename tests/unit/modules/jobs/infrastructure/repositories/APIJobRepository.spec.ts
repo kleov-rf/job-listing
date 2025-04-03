@@ -29,15 +29,22 @@ describe('APIJobRepository', () => {
         })
     })
     it('should call to map API response to domain job', async () => {
-        const mockAPIJob = {
+        const mockAPIJobOne = {
             id: 1,
             job_title: "Senior Accountant",
             company: 'Tech Corp',
             short_location: "Atlanta, GA",
             employment_statuses: ['Full-time'],
         } as APIJobDTO;
+        const mockAPIJobTwo = {
+            id: 2,
+            job_title: "Junior Developer",
+            company: 'Dev Inc',
+            short_location: "New York, NY",
+            employment_statuses: ['Part-time'],
+        }
         const mockAPIResponse = {
-            data: [mockAPIJob],
+            data: [mockAPIJobOne, mockAPIJobTwo],
         } as APIJobsResponseDTO;
         global.fetch = vi.fn().mockResolvedValue({
             json: vi.fn().mockResolvedValue(mockAPIResponse),
@@ -47,6 +54,7 @@ describe('APIJobRepository', () => {
 
         await jobRepository.findAll()
 
-        expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJob);
+        expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJobOne);
+        expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJobTwo);
     })
 })
