@@ -44,6 +44,6 @@ export class Job {
     }
 
     locationValue() {
-        throw new Error("Method not implemented.");
+        return this.location.getValue()
     }
 }
