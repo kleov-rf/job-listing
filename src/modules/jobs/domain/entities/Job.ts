@@ -52,6 +52,6 @@ export class Job {
     }
 
     descriptionValue() {
-        throw new Error('Method not implemented.');
+        return this.description.getValue()
     }
 }
