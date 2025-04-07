@@ -50,10 +50,7 @@ test.describe('Job Listings', () => {
     await filterButton.waitFor({ state: 'visible' });
     await filterButton.click()
 
-    const filterOptions = page.locator('[data-testid="job-type-options"]')
-    await filterOptions.waitFor({ state: 'visible' });
-
-    const fullTimeOption = filterOptions.locator('text=Full Time')
+    const fullTimeOption = page.locator('span').filter({ hasText: 'Full-Time' })
     await fullTimeOption.click()
 
     await page.waitForLoadState('networkidle');
@@ -64,7 +61,7 @@ test.describe('Job Listings', () => {
     const count = await jobCards.count();
     for (let i = 0; i < count; i++) {
       const typeLocator = jobCards.nth(i).locator('[data-testid="job-type"]');
-      await expect(typeLocator).toHaveText('Full Time');
+      await expect(typeLocator).toHaveText('Full-Time');
     }
   })
 })
