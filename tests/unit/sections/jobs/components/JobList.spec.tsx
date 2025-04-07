@@ -1,29 +1,15 @@
 import {describe, expect, it} from "vitest";
-import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {JobTypeEnum} from "@/modules/jobs/domain/value-objects";
 import {render, screen} from "@testing-library/react";
 import {JobList} from "@/sections/jobs/components/JobList.tsx";
 import {userEvent} from "@testing-library/user-event";
+import {JobMother} from "../../../modules/jobs/domain/entities/JobMother.ts";
 
 describe('JobList', () => {
     it('should show jobs', async () => {
         const mockRetrievedJobs = [
-            Job.create({
-                id: '1',
-                title: 'Software Engineer',
-                description: 'Develop software applications',
-                location: 'Remote',
-                type: JobTypeEnum.FULL_TIME,
-                companyName: 'Tech Company',
-            }),
-            Job.create({
-                id: '2',
-                title: 'Data Scientist',
-                description: 'Analyze data and build models',
-                location: 'Remote',
-                type: JobTypeEnum.PART_TIME,
-                companyName: 'Data Corp',
-            }),
+            JobMother.createFullTimeJob(),
+            JobMother.createPartTimeJob(),
         ];
 
         render(<JobList jobs={mockRetrievedJobs}/>)
@@ -42,25 +28,17 @@ describe('JobList', () => {
         it('should show only full-time jobs', async () => {
             const fullTimeRole = 'Software Engineer';
             const fullTimeJobs = [
-                Job.create({
-                    id: '1',
+                JobMother.createWithCustomValues({
                     title: fullTimeRole,
-                    description: 'Develop software applications',
-                    location: 'Remote',
                     type: JobTypeEnum.FULL_TIME,
-                    companyName: 'Tech Company',
                 }),
             ];
             const partTimeRole = 'Data Scientist';
             const mockRetrievedJobs = [
                 ...fullTimeJobs,
-                Job.create({
-                    id: '2',
+                JobMother.createWithCustomValues({
                     title: partTimeRole,
-                    description: 'Analyze data and build models',
-                    location: 'Remote',
                     type: JobTypeEnum.PART_TIME,
-                    companyName: 'Data Corp',
                 }),
             ];
 
@@ -76,25 +54,17 @@ describe('JobList', () => {
         it('should show only part-time jobs', async () => {
             const partTimeRole = 'Data Scientist';
             const partTimeJobs = [
-                Job.create({
-                    id: '2',
+                JobMother.createWithCustomValues({
                     title: partTimeRole,
-                    description: 'Analyze data and build models',
-                    location: 'Remote',
                     type: JobTypeEnum.PART_TIME,
-                    companyName: 'Data Corp',
                 }),
             ];
             const fullTimeRole = 'Software Engineer';
             const mockRetrievedJobs = [
                 ...partTimeJobs,
-                Job.create({
-                    id: '1',
+                JobMother.createWithCustomValues({
                     title: fullTimeRole,
-                    description: 'Develop software applications',
-                    location: 'Remote',
                     type: JobTypeEnum.FULL_TIME,
-                    companyName: 'Tech Company',
                 }),
             ];
 
@@ -110,25 +80,17 @@ describe('JobList', () => {
         it('should show only contract jobs', async () => {
             const contractRole = 'Contract Developer';
             const contractJobs = [
-                Job.create({
-                    id: '3',
+                JobMother.createWithCustomValues({
                     title: contractRole,
-                    description: 'Develop software applications',
-                    location: 'Remote',
                     type: JobTypeEnum.CONTRACT,
-                    companyName: 'Contract Company',
                 }),
             ];
             const fullTimeRole = 'Software Engineer';
             const mockRetrievedJobs = [
                 ...contractJobs,
-                Job.create({
-                    id: '1',
+                JobMother.createWithCustomValues({
                     title: fullTimeRole,
-                    description: 'Develop software applications',
-                    location: 'Remote',
                     type: JobTypeEnum.FULL_TIME,
-                    companyName: 'Tech Company',
                 }),
             ];
 
@@ -143,30 +105,9 @@ describe('JobList', () => {
         })
         it('should show all jobs when selecting all types', async () => {
             const mockRetrievedJobs = [
-                Job.create({
-                    id: '1',
-                    title: 'Software Engineer',
-                    description: 'Develop software applications',
-                    location: 'Remote',
-                    type: JobTypeEnum.FULL_TIME,
-                    companyName: 'Tech Company',
-                }),
-                Job.create({
-                    id: '2',
-                    title: 'Data Scientist',
-                    description: 'Analyze data and build models',
-                    location: 'Remote',
-                    type: JobTypeEnum.PART_TIME,
-                    companyName: 'Data Corp',
-                }),
-                Job.create({
-                    id: '3',
-                    title: 'Contract Developer',
-                    description: 'Develop software applications',
-                    location: 'Remote',
-                    type: JobTypeEnum.CONTRACT,
-                    companyName: 'Contract Company',
-                }),
+                JobMother.createFullTimeJob(),
+                JobMother.createPartTimeJob(),
+                JobMother.createContractJob(),
             ];
 
             render(<JobList jobs={mockRetrievedJobs}/>)

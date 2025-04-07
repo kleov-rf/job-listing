@@ -2,8 +2,7 @@ import {describe, expect, it, vi} from "vitest";
 import {APIJobRepository} from "@/modules/jobs/infrastructure/repositories/APIJobRepository.ts";
 import {APIJobDTO, APIJobsResponseDTO} from "@/modules/jobs/infrastructure/dtos/APIJobResponseDTO.ts";
 import {JobEntityMapper} from "@/modules/jobs/infrastructure/mappers/JobEntityMapper.ts";
-import {Job} from "@/modules/jobs/domain/entities/Job.ts";
-import {JobTypeEnum} from "@/modules/jobs/domain/value-objects/JobType.ts";
+import {JobMother} from "../../domain/entities/JobMother.ts";
 
 describe('APIJobRepository', () => {
     it('should call API with default options to find all jobs', async () => {
@@ -66,14 +65,7 @@ describe('APIJobRepository', () => {
             ok: true,
             json: vi.fn().mockResolvedValue(mockSingleValueResponseValue),
         })
-        const mappedJob = Job.create({
-            id: '1',
-            title: 'Senior Accountant',
-            companyName: 'Tech Corp',
-            location: 'Atlanta, GA',
-            type: JobTypeEnum.FULL_TIME,
-            description: 'Responsible for financial reporting.'
-        });
+        const mappedJob = JobMother.createDefault();
         vi.spyOn(JobEntityMapper, 'toDomain').mockReturnValue(mappedJob)
         const jobRepository = new APIJobRepository()
 
