@@ -6,4 +6,7 @@ describe('renderJobTypeLabel', () => {
     it('should return "Full-Time" for FULL_TIME', () => {
         expect(renderJobTypeLabel(JobTypeEnum.FULL_TIME)).toBe('Full-Time')
     })
+    it('should return "Part-Time" for PART_TIME', () => {
+        expect(renderJobTypeLabel(JobTypeEnum.PART_TIME)).toBe('Part-Time')
+    })
 })
