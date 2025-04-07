@@ -9,4 +9,7 @@ describe('renderJobTypeLabel', () => {
     it('should return "Part-Time" for PART_TIME', () => {
         expect(renderJobTypeLabel(JobTypeEnum.PART_TIME)).toBe('Part-Time')
     })
+    it('should return "Contract" for CONTRACT', () => {
+        expect(renderJobTypeLabel(JobTypeEnum.CONTRACT)).toBe('Contract')
+    })
 })
