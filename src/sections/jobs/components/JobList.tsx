@@ -3,6 +3,7 @@ import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {JobCard} from "@/sections/jobs/components/JobCard.tsx";
 import {JobType, JobTypeEnum} from "@/modules/jobs/domain/value-objects";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/sections/shared/components/Select.tsx";
+import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 
 interface JobListProps {
     jobs: Job[];
@@ -36,9 +37,9 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="ALL">All Types</SelectItem>
-                        <SelectItem value={JobTypeEnum.FULL_TIME}>Full-Time</SelectItem>
-                        <SelectItem value={JobTypeEnum.PART_TIME}>Part-Time</SelectItem>
-                        <SelectItem value={JobTypeEnum.CONTRACT}>Contract</SelectItem>
+                        <SelectItem value={JobTypeEnum.FULL_TIME}>{renderJobTypeLabel(JobTypeEnum.FULL_TIME)}</SelectItem>
+                        <SelectItem value={JobTypeEnum.PART_TIME}>{renderJobTypeLabel(JobTypeEnum.PART_TIME)}</SelectItem>
+                        <SelectItem value={JobTypeEnum.CONTRACT}>{renderJobTypeLabel(JobTypeEnum.CONTRACT)}</SelectItem>
                     </SelectContent>
                 </Select>
             </header>
