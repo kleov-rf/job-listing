@@ -9,7 +9,7 @@ describe('APIJobRepository', () => {
     it('should call API with default options to find all jobs', async () => {
         const jobRepository = new APIJobRepository()
         const mockFetch = vi.fn().mockResolvedValue({
-            json: vi.fn().mockResolvedValue({ok: true, data: []} as APIJobsResponseDTO),
+            json: vi.fn().mockResolvedValue({data: []} as APIJobsResponseDTO),
         })
         global.fetch = mockFetch
 
@@ -46,10 +46,10 @@ describe('APIJobRepository', () => {
             employment_statuses: ['Part-time'],
         }
         const mockAPIResponse = {
-            ok: true,
             data: [mockAPIJobOne, mockAPIJobTwo],
         } as APIJobsResponseDTO;
         global.fetch = vi.fn().mockResolvedValue({
+            ok: true,
             json: vi.fn().mockResolvedValue(mockAPIResponse),
         })
         vi.spyOn(JobEntityMapper, 'toDomain')
@@ -61,8 +61,9 @@ describe('APIJobRepository', () => {
         expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJobTwo);
     })
     it('should return mapped jobs', async () => {
-        const mockSingleValueResponseValue = {ok: true, data: [null as unknown as APIJobDTO]} as APIJobsResponseDTO;
+        const mockSingleValueResponseValue = {data: [null as unknown as APIJobDTO]} as APIJobsResponseDTO;
         global.fetch = vi.fn().mockResolvedValue({
+            ok: true,
             json: vi.fn().mockResolvedValue(mockSingleValueResponseValue),
         })
         const mappedJob = Job.create({
@@ -82,7 +83,7 @@ describe('APIJobRepository', () => {
     })
     it('should return empty array when request is not successful', async () => {
         global.fetch = vi.fn().mockResolvedValue({
-            json: vi.fn().mockResolvedValue({ok: false}),
+            ok: false,
         })
         const jobRepository = new APIJobRepository()
 

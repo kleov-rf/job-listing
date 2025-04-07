@@ -8,13 +8,15 @@ export class APIJobRepository implements JobRepository {
     private readonly apiKey = import.meta.env.VITE_API_KEY
 
     async findAll(): Promise<Job[]> {
-        const {data, ok} = await this.fetchJobs() as APIJobsResponseDTO;
-        if (!ok) return []
+        const response = await this.fetchJobs();
 
+        if (!response.ok) return []
+
+        const { data } = await response.json() as APIJobsResponseDTO;
         return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
-    private async fetchJobs() {
+    private async fetchJobs(): Promise<Response> {
         const defaultOptions = {
             page: 0,
             limit: 25,
@@ -22,7 +24,8 @@ export class APIJobRepository implements JobRepository {
             job_country_code_or: ['US'],
             posted_at_max_age_days: 7,
         };
-        const response = await fetch(this.apiUrl, {
+
+        return await fetch(this.apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +33,5 @@ export class APIJobRepository implements JobRepository {
             },
             body: JSON.stringify(defaultOptions),
         });
-
-        return response.json()
     }
 }

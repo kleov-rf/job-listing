@@ -14,6 +14,5 @@ export interface APIJobDTO {
 }
 
 export interface APIJobsResponseDTO {
-    ok: boolean
     data: APIJobDTO[]
 }
