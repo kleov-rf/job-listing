@@ -1,14 +1,14 @@
 import {JobTypeEnum} from "@/modules/jobs/domain/value-objects";
 
 export const renderJobTypeLabel = (jobType: JobTypeEnum): string => {
-    if (jobType === JobTypeEnum.NOT_DEFINED) {
-        return '-';
+    switch(jobType) {
+        case JobTypeEnum.FULL_TIME:
+            return 'Full-Time';
+        case JobTypeEnum.PART_TIME:
+            return 'Part-Time';
+        case JobTypeEnum.CONTRACT:
+            return 'Contract';
+        default:
+            return '-';
     }
-    if (jobType === JobTypeEnum.CONTRACT) {
-        return 'Contract';
-    }
-    if (jobType === JobTypeEnum.PART_TIME) {
-        return 'Part-Time';
-    }
-    return 'Full-Time';
 }
