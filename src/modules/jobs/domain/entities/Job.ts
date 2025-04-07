@@ -54,4 +54,8 @@ export class Job {
     descriptionValue() {
         return this.description.getValue()
     }
+
+    matchesType(jobType: JobType) {
+        throw new Error('Method not implemented.')
+    }
 }

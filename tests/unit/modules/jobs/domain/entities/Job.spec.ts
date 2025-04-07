@@ -1,6 +1,6 @@
 import {describe, expect, it} from "vitest";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
-import {JobTypeEnum} from "@/modules/jobs/domain/value-objects";
+import {JobType, JobTypeEnum} from "@/modules/jobs/domain/value-objects";
 
 describe('Job', () => {
     it('should return id value', () => {
@@ -80,5 +80,19 @@ describe('Job', () => {
         })
 
         expect(job.descriptionValue()).toEqual(jobDescription)
+    })
+    it('should match job by type', () => {
+        const typeEnum = JobTypeEnum.FULL_TIME;
+        const jobType = new JobType(typeEnum);
+        const job = Job.create({
+            id: '1',
+            title: 'Software Engineer',
+            description: 'Develop software applications',
+            location: 'Remote',
+            type: typeEnum,
+            companyName: 'Tech Company',
+        })
+
+        expect(job.matchesType(jobType)).toBe(true)
     })
 })
