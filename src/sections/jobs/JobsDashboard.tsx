@@ -15,5 +15,13 @@ export const JobsDashboard: () => JSX.Element = () => {
         fetchJobs();
     }, [getJobsUseCase])
 
-    return <JobList jobs={jobs} />;
+    return (
+        <>
+            {jobs.length > 0 ? <JobList jobs={jobs}/> : (
+                <section className="flex justify-center py-8">
+                    <p className="text-gray-500">No jobs found.</p>
+                </section>
+            )}
+        </>
+    );
 }
