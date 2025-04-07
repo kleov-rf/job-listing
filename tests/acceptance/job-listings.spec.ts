@@ -43,4 +43,28 @@ test.describe('Job Listings', () => {
       expect(type).not.toBe('')
     }
   });
+  test('should filter job listings by type', async ({ page }) => {
+    await page.goto('/')
+
+    const filterButton = page.locator('#job-type-filter')
+    await filterButton.waitFor({ state: 'visible' });
+    await filterButton.click()
+
+    const filterOptions = page.locator('[data-testid="job-type-options"]')
+    await filterOptions.waitFor({ state: 'visible' });
+
+    const fullTimeOption = filterOptions.locator('text=Full Time')
+    await fullTimeOption.click()
+
+    await page.waitForLoadState('networkidle');
+
+    const jobCards = page.locator('[data-testid="job-card"]');
+    await expect(jobCards).not.toHaveCount(0);
+
+    const count = await jobCards.count();
+    for (let i = 0; i < count; i++) {
+      const typeLocator = jobCards.nth(i).locator('[data-testid="job-type"]');
+      await expect(typeLocator).toHaveText('Full Time');
+    }
+  })
 })
