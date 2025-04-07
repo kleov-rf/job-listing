@@ -95,4 +95,18 @@ describe('Job', () => {
 
         expect(job.matchesType(jobType)).toBe(true)
     })
+    it('should not match job by type', () => {
+        const typeEnum = JobTypeEnum.PART_TIME;
+        const jobType = new JobType(typeEnum);
+        const job = Job.create({
+            id: '1',
+            title: 'Software Engineer',
+            description: 'Develop software applications',
+            location: 'Remote',
+            type: JobTypeEnum.FULL_TIME,
+            companyName: 'Tech Company',
+        })
+
+        expect(job.matchesType(jobType)).toBe(false)
+    })
 })
