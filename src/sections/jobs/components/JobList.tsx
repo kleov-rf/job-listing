@@ -14,9 +14,8 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
     const [selectedType, setSelectedType] = useState<JobTypeOptions>('ALL')
 
     const filteredJobs = useMemo(() => {
-        return jobs.filter(job =>
-                selectedType === 'ALL' || job.matchesType(new JobType(selectedType))
-        )
+        if (selectedType === 'ALL') return []
+        return jobs.filter(job => job.matchesType(new JobType(selectedType)))
     }, [jobs, selectedType])
 
     const jobCards = useMemo(() => {

@@ -146,5 +146,55 @@ describe('JobList', () => {
             expect(await screen.findByText(contractRole)).toBeInTheDocument();
             expect(screen.queryByText(fullTimeRole)).not.toBeInTheDocument();
         })
+        it('should show all jobs when selecting all types', async () => {
+            const fullTimeRole = 'Software Engineer';
+            const partTimeRole = 'Data Scientist';
+            const contractRole = 'Contract Developer';
+            const mockRetrievedJobs = [
+                Job.create({
+                    id: '1',
+                    title: fullTimeRole,
+                    description: 'Develop software applications',
+                    location: 'Remote',
+                    type: JobTypeEnum.FULL_TIME,
+                    companyName: 'Tech Company',
+                }),
+                Job.create({
+                    id: '2',
+                    title: partTimeRole,
+                    description: 'Analyze data and build models',
+                    location: 'Remote',
+                    type: JobTypeEnum.PART_TIME,
+                    companyName: 'Data Corp',
+                }),
+                Job.create({
+                    id: '3',
+                    title: contractRole,
+                    description: 'Develop software applications',
+                    location: 'Remote',
+                    type: JobTypeEnum.CONTRACT,
+                    companyName: 'Contract Company',
+                }),
+            ];
+
+            render(<JobList jobs={mockRetrievedJobs}/>)
+
+            const allTypesSelect = screen.getByRole('combobox');
+            await userEvent.click(allTypesSelect);
+
+            const contractOption = screen.getByTestId(`${JobTypeEnum.CONTRACT}-option`);
+            await userEvent.click(contractOption);
+
+            const jobCards = await screen.findAllByTestId('job-card');
+            expect(jobCards).not.toHaveLength(mockRetrievedJobs.length);
+
+            await userEvent.click(allTypesSelect);
+
+            const allOption = screen.getByText('All Types');
+            await userEvent.click(allOption);
+
+            const allJobCards = await screen.findAllByTestId('job-card');
+            expect(allJobCards).toHaveLength(mockRetrievedJobs.length);
+        })
     })
 })
