@@ -70,5 +70,43 @@ describe('JobList', () => {
             expect(await screen.findByText(fullTimeRole)).toBeInTheDocument();
             expect(screen.queryByText(partTimeRole)).not.toBeInTheDocument();
         })
+        it('should show only part-time jobs', async () => {
+            const partTimeRole = 'Data Scientist';
+            const partTimeJobs = [
+                Job.create({
+                    id: '2',
+                    title: partTimeRole,
+                    description: 'Analyze data and build models',
+                    location: 'Remote',
+                    type: JobTypeEnum.PART_TIME,
+                    companyName: 'Data Corp',
+                }),
+            ];
+            const fullTimeRole = 'Software Engineer';
+            const mockRetrievedJobs = [
+                ...partTimeJobs,
+                Job.create({
+                    id: '1',
+                    title: fullTimeRole,
+                    description: 'Develop software applications',
+                    location: 'Remote',
+                    type: JobTypeEnum.FULL_TIME,
+                    companyName: 'Tech Company',
+                }),
+            ];
+
+            render(<JobList jobs={mockRetrievedJobs}/>)
+
+            const allTypesSelect = screen.getByRole('combobox');
+            await userEvent.click(allTypesSelect);
+
+            const partTimeOption = screen.getByTestId(`${JobTypeEnum.PART_TIME}-option`);
+            await userEvent.click(partTimeOption);
+
+            const jobCards = await screen.findAllByTestId('job-card');
+            expect(jobCards).toHaveLength(partTimeJobs.length);
+            expect(await screen.findByText(partTimeRole)).toBeInTheDocument();
+            expect(screen.queryByText(fullTimeRole)).not.toBeInTheDocument();
+        })
     })
 })
