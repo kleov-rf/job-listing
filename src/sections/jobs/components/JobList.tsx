@@ -1,15 +1,12 @@
 import {FC, useMemo, useState} from "react";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {JobCard} from "@/sections/jobs/components/JobCard.tsx";
-import {JobType, JobTypeEnum} from "@/modules/jobs/domain/value-objects";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/sections/shared/components/Select.tsx";
-import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
+import {JobType} from "@/modules/jobs/domain/value-objects";
+import {JobTypeOptions, JobTypeSelect} from "@/sections/jobs/components/JobTypeSelect.tsx";
 
 interface JobListProps {
     jobs: Job[];
 }
-
-type JobTypeOptions = JobTypeEnum | 'ALL';
 
 export const JobList: FC<JobListProps> = ({jobs}) => {
     const [selectedType, setSelectedType] = useState<JobTypeOptions>('ALL')
@@ -25,23 +22,14 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
         ));
     }, [filteredJobs])
 
+    const handleTypeChange = (selectedType: JobTypeOptions) => {
+        setSelectedType(selectedType)
+    }
+
     return (
         <section className="space-y-6" aria-label="Job listings">
             <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <label htmlFor="job-type-filter" className="sr-only">
-                    Filter by job type
-                </label>
-                <Select value={selectedType} onValueChange={value => setSelectedType(value as JobTypeOptions)}>
-                    <SelectTrigger id="job-type-filter" className="w-44">
-                        <SelectValue placeholder="Select job type"/>
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectItem value="ALL">All Types</SelectItem>
-                        <SelectItem value={JobTypeEnum.FULL_TIME}>{renderJobTypeLabel(JobTypeEnum.FULL_TIME)}</SelectItem>
-                        <SelectItem value={JobTypeEnum.PART_TIME}>{renderJobTypeLabel(JobTypeEnum.PART_TIME)}</SelectItem>
-                        <SelectItem value={JobTypeEnum.CONTRACT}>{renderJobTypeLabel(JobTypeEnum.CONTRACT)}</SelectItem>
-                    </SelectContent>
-                </Select>
+                <JobTypeSelect currentType={selectedType} handleTypeChange={handleTypeChange} />
             </header>
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
                 {jobCards}
