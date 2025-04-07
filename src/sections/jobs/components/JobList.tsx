@@ -41,6 +41,8 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
                                     data-testid={`${JobTypeEnum.FULL_TIME}-option`}>Full-Time</SelectItem>
                         <SelectItem value={JobTypeEnum.PART_TIME}
                                     data-testid={`${JobTypeEnum.PART_TIME}-option`}>Part-Time</SelectItem>
+                        <SelectItem value={JobTypeEnum.CONTRACT}
+                                    data-testid={`${JobTypeEnum.CONTRACT}-option`}>Contract</SelectItem>
                     </SelectContent>
                 </Select>
             </header>
