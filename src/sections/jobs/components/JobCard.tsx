@@ -2,6 +2,7 @@ import {FC} from "react";
 import {motion} from 'framer-motion'
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
+import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 
 interface JobCardProps {
     job: Job;
@@ -34,7 +35,7 @@ export const JobCard: FC<JobCardProps> = ({job}) => {
                             Type
                         </dt>
                         <dd className="text-sm text-muted-foreground" data-testid="job-type">
-                            {job.typeValue().replace('_', ' ')}
+                            {renderJobTypeLabel(job.typeValue())}
                         </dd>
                         <dt className="font-medium text-sm text-muted-foreground">
                             Description

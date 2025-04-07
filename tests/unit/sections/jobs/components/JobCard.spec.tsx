@@ -24,7 +24,7 @@ describe('JobCard', () => {
         expect(screen.getByTestId('job-location')).toBeInTheDocument()
         expect(screen.getByText('Remote')).toBeInTheDocument()
         expect(screen.getByTestId('job-type')).toBeInTheDocument()
-        expect(screen.getByText('FULL TIME')).toBeInTheDocument()
+        expect(screen.getByText('Full-Time')).toBeInTheDocument()
         expect(screen.getByTestId('job-description')).toBeInTheDocument()
         expect(screen.getByText('Develop software applications')).toBeInTheDocument()
     })
