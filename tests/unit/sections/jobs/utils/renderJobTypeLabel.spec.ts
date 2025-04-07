@@ -12,4 +12,7 @@ describe('renderJobTypeLabel', () => {
     it('should return "Contract" for CONTRACT', () => {
         expect(renderJobTypeLabel(JobTypeEnum.CONTRACT)).toBe('Contract')
     })
+    it('should return "-" for NOT_DEFINED', () => {
+        expect(renderJobTypeLabel(JobTypeEnum.NOT_DEFINED)).toBe('-')
+    })
 })
