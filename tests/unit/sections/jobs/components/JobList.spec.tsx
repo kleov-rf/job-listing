@@ -62,7 +62,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const fullTimeOption = screen.getByText('Full-Time');
+            const fullTimeOption = screen.getByText('Full-Time', {selector: 'span'});
             await userEvent.click(fullTimeOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
@@ -100,7 +100,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const partTimeOption = screen.getByText('Part-Time');
+            const partTimeOption = screen.getByText('Part-Time', {selector: 'span'});
             await userEvent.click(partTimeOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
@@ -138,7 +138,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const contractOption = screen.getByText('Contract');
+            const contractOption = screen.getByText('Contract', {selector: 'span'});
             await userEvent.click(contractOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
@@ -182,7 +182,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const contractOption = screen.getByText('Contract');
+            const contractOption = screen.getByText('Contract', {selector: 'span'});
             await userEvent.click(contractOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
