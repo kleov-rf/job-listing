@@ -56,6 +56,6 @@ export class Job {
     }
 
     matchesType(jobType: JobType) {
-        throw new Error('Method not implemented.')
+        return true;
     }
 }
