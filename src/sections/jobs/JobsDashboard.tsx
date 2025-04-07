@@ -13,7 +13,7 @@ export const JobsDashboard: () => JSX.Element = () => {
         };
 
         fetchJobs();
-    })
+    }, [getJobsUseCase])
 
     return <JobList jobs={jobs} />;
 }
