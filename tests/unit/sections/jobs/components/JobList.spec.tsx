@@ -108,5 +108,43 @@ describe('JobList', () => {
             expect(await screen.findByText(partTimeRole)).toBeInTheDocument();
             expect(screen.queryByText(fullTimeRole)).not.toBeInTheDocument();
         })
+        it('should show only contract jobs', async () => {
+            const contractRole = 'Contract Developer';
+            const contractJobs = [
+                Job.create({
+                    id: '3',
+                    title: contractRole,
+                    description: 'Develop software applications',
+                    location: 'Remote',
+                    type: JobTypeEnum.CONTRACT,
+                    companyName: 'Contract Company',
+                }),
+            ];
+            const fullTimeRole = 'Software Engineer';
+            const mockRetrievedJobs = [
+                ...contractJobs,
+                Job.create({
+                    id: '1',
+                    title: fullTimeRole,
+                    description: 'Develop software applications',
+                    location: 'Remote',
+                    type: JobTypeEnum.FULL_TIME,
+                    companyName: 'Tech Company',
+                }),
+            ];
+
+            render(<JobList jobs={mockRetrievedJobs}/>)
+
+            const allTypesSelect = screen.getByRole('combobox');
+            await userEvent.click(allTypesSelect);
+
+            const contractOption = screen.getByTestId(`${JobTypeEnum.CONTRACT}-option`);
+            await userEvent.click(contractOption);
+
+            const jobCards = await screen.findAllByTestId('job-card');
+            expect(jobCards).toHaveLength(contractJobs.length);
+            expect(await screen.findByText(contractRole)).toBeInTheDocument();
+            expect(screen.queryByText(fullTimeRole)).not.toBeInTheDocument();
+        })
     })
 })
