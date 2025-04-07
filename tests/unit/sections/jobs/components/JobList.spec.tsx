@@ -33,21 +33,23 @@ describe('JobList', () => {
     })
     describe('should filter jobs when selecting type', async () => {
         it('should show only full-time jobs', async () => {
+            const fullTimeRole = 'Software Engineer';
             const fullTimeJobs = [
                 Job.create({
                     id: '1',
-                    title: 'Software Engineer',
+                    title: fullTimeRole,
                     description: 'Develop software applications',
                     location: 'Remote',
                     type: JobTypeEnum.FULL_TIME,
                     companyName: 'Tech Company',
                 }),
             ];
+            const partTimeRole = 'Data Scientist';
             const mockRetrievedJobs = [
                 ...fullTimeJobs,
                 Job.create({
                     id: '2',
-                    title: 'Data Scientist',
+                    title: partTimeRole,
                     description: 'Analyze data and build models',
                     location: 'Remote',
                     type: JobTypeEnum.PART_TIME,
@@ -65,6 +67,8 @@ describe('JobList', () => {
 
             const jobCards = await screen.findAllByTestId('job-card');
             expect(jobCards).toHaveLength(fullTimeJobs.length);
+            expect(await screen.findByText(fullTimeRole)).toBeInTheDocument();
+            expect(screen.queryByText(partTimeRole)).not.toBeInTheDocument();
         })
     })
 })
