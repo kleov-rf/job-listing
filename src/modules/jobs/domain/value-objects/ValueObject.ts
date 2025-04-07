@@ -8,4 +8,8 @@ export abstract class ValueObject<T> {
     public getValue(): T {
         return this.value
     }
+
+    public equals(other: ValueObject<T>): boolean {
+        return this.value === other.value
+    }
 }

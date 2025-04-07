@@ -56,6 +56,6 @@ export class Job {
     }
 
     matchesType(jobType: JobType) {
-        return true;
+        return this.type.equals(jobType)
     }
 }
