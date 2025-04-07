@@ -32,6 +32,13 @@ describe('JobList', () => {
         expect(jobCards).toHaveLength(mockRetrievedJobs.length);
     })
     describe('should filter jobs when selecting type', async () => {
+        const selectJobTypeOption = async (optionText: string) => {
+            const allTypesSelect = screen.getByRole('combobox');
+            await userEvent.click(allTypesSelect);
+
+            const option = screen.getByText(optionText, {selector: 'span'});
+            await userEvent.click(option);
+        }
         it('should show only full-time jobs', async () => {
             const fullTimeRole = 'Software Engineer';
             const fullTimeJobs = [
@@ -59,11 +66,7 @@ describe('JobList', () => {
 
             render(<JobList jobs={mockRetrievedJobs}/>)
 
-            const allTypesSelect = screen.getByRole('combobox');
-            await userEvent.click(allTypesSelect);
-
-            const fullTimeOption = screen.getByText('Full-Time', {selector: 'span'});
-            await userEvent.click(fullTimeOption);
+            await selectJobTypeOption('Full-Time');
 
             const jobCards = await screen.findAllByTestId('job-card');
             expect(jobCards).toHaveLength(fullTimeJobs.length);
@@ -97,11 +100,7 @@ describe('JobList', () => {
 
             render(<JobList jobs={mockRetrievedJobs}/>)
 
-            const allTypesSelect = screen.getByRole('combobox');
-            await userEvent.click(allTypesSelect);
-
-            const partTimeOption = screen.getByText('Part-Time', {selector: 'span'});
-            await userEvent.click(partTimeOption);
+            await selectJobTypeOption('Part-Time');
 
             const jobCards = await screen.findAllByTestId('job-card');
             expect(jobCards).toHaveLength(partTimeJobs.length);
@@ -135,11 +134,7 @@ describe('JobList', () => {
 
             render(<JobList jobs={mockRetrievedJobs}/>)
 
-            const allTypesSelect = screen.getByRole('combobox');
-            await userEvent.click(allTypesSelect);
-
-            const contractOption = screen.getByText('Contract', {selector: 'span'});
-            await userEvent.click(contractOption);
+            await selectJobTypeOption('Contract');
 
             const jobCards = await screen.findAllByTestId('job-card');
             expect(jobCards).toHaveLength(contractJobs.length);
@@ -147,13 +142,10 @@ describe('JobList', () => {
             expect(screen.queryByText(fullTimeRole)).not.toBeInTheDocument();
         })
         it('should show all jobs when selecting all types', async () => {
-            const fullTimeRole = 'Software Engineer';
-            const partTimeRole = 'Data Scientist';
-            const contractRole = 'Contract Developer';
             const mockRetrievedJobs = [
                 Job.create({
                     id: '1',
-                    title: fullTimeRole,
+                    title: 'Software Engineer',
                     description: 'Develop software applications',
                     location: 'Remote',
                     type: JobTypeEnum.FULL_TIME,
@@ -161,7 +153,7 @@ describe('JobList', () => {
                 }),
                 Job.create({
                     id: '2',
-                    title: partTimeRole,
+                    title: 'Data Scientist',
                     description: 'Analyze data and build models',
                     location: 'Remote',
                     type: JobTypeEnum.PART_TIME,
@@ -169,7 +161,7 @@ describe('JobList', () => {
                 }),
                 Job.create({
                     id: '3',
-                    title: contractRole,
+                    title: 'Contract Developer',
                     description: 'Develop software applications',
                     location: 'Remote',
                     type: JobTypeEnum.CONTRACT,
@@ -179,19 +171,12 @@ describe('JobList', () => {
 
             render(<JobList jobs={mockRetrievedJobs}/>)
 
-            const allTypesSelect = screen.getByRole('combobox');
-            await userEvent.click(allTypesSelect);
-
-            const contractOption = screen.getByText('Contract', {selector: 'span'});
-            await userEvent.click(contractOption);
+            await selectJobTypeOption('Contract');
 
             const jobCards = await screen.findAllByTestId('job-card');
             expect(jobCards).not.toHaveLength(mockRetrievedJobs.length);
 
-            await userEvent.click(allTypesSelect);
-
-            const allOption = screen.getByText('All Types');
-            await userEvent.click(allOption);
+            await selectJobTypeOption('All Types');
 
             const allJobCards = await screen.findAllByTestId('job-card');
             expect(allJobCards).toHaveLength(mockRetrievedJobs.length);
