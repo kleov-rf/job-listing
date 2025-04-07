@@ -36,12 +36,9 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="ALL">All Types</SelectItem>
-                        <SelectItem value={JobTypeEnum.FULL_TIME}
-                                    data-testid={`${JobTypeEnum.FULL_TIME}-option`}>Full-Time</SelectItem>
-                        <SelectItem value={JobTypeEnum.PART_TIME}
-                                    data-testid={`${JobTypeEnum.PART_TIME}-option`}>Part-Time</SelectItem>
-                        <SelectItem value={JobTypeEnum.CONTRACT}
-                                    data-testid={`${JobTypeEnum.CONTRACT}-option`}>Contract</SelectItem>
+                        <SelectItem value={JobTypeEnum.FULL_TIME}>Full-Time</SelectItem>
+                        <SelectItem value={JobTypeEnum.PART_TIME}>Part-Time</SelectItem>
+                        <SelectItem value={JobTypeEnum.CONTRACT}>Contract</SelectItem>
                     </SelectContent>
                 </Select>
             </header>

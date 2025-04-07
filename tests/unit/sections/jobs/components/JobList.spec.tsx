@@ -62,7 +62,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const fullTimeOption = screen.getByTestId(`${JobTypeEnum.FULL_TIME}-option`);
+            const fullTimeOption = screen.getByText('Full-Time');
             await userEvent.click(fullTimeOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
@@ -100,7 +100,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const partTimeOption = screen.getByTestId(`${JobTypeEnum.PART_TIME}-option`);
+            const partTimeOption = screen.getByText('Part-Time');
             await userEvent.click(partTimeOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
@@ -138,7 +138,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const contractOption = screen.getByTestId(`${JobTypeEnum.CONTRACT}-option`);
+            const contractOption = screen.getByText('Contract');
             await userEvent.click(contractOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
@@ -182,7 +182,7 @@ describe('JobList', () => {
             const allTypesSelect = screen.getByRole('combobox');
             await userEvent.click(allTypesSelect);
 
-            const contractOption = screen.getByTestId(`${JobTypeEnum.CONTRACT}-option`);
+            const contractOption = screen.getByText('Contract');
             await userEvent.click(contractOption);
 
             const jobCards = await screen.findAllByTestId('job-card');
