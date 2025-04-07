@@ -9,7 +9,7 @@ describe('APIJobRepository', () => {
     it('should call API with default options to find all jobs', async () => {
         const jobRepository = new APIJobRepository()
         const mockFetch = vi.fn().mockResolvedValue({
-            json: vi.fn().mockResolvedValue({data: []} as APIJobsResponseDTO),
+            json: vi.fn().mockResolvedValue({ok: true, data: []} as APIJobsResponseDTO),
         })
         global.fetch = mockFetch
 
@@ -46,6 +46,7 @@ describe('APIJobRepository', () => {
             employment_statuses: ['Part-time'],
         }
         const mockAPIResponse = {
+            ok: true,
             data: [mockAPIJobOne, mockAPIJobTwo],
         } as APIJobsResponseDTO;
         global.fetch = vi.fn().mockResolvedValue({
@@ -60,7 +61,7 @@ describe('APIJobRepository', () => {
         expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJobTwo);
     })
     it('should return mapped jobs', async () => {
-        const mockSingleValueResponseValue = {data: [null]};
+        const mockSingleValueResponseValue = {ok: true, data: [null as unknown as APIJobDTO]} as APIJobsResponseDTO;
         global.fetch = vi.fn().mockResolvedValue({
             json: vi.fn().mockResolvedValue(mockSingleValueResponseValue),
         })
