@@ -8,7 +8,10 @@ export class APIJobRepository implements JobRepository {
     private readonly apiKey = import.meta.env.VITE_API_KEY
 
     async findAll(): Promise<Job[]> {
-        const {data} = await this.fetchJobs() as APIJobsResponseDTO;
+        const response = await this.fetchJobs();
+        if (!response.ok) return []
+
+        const {data} = response as APIJobsResponseDTO;
         return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
