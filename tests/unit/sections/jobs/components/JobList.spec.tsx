@@ -146,6 +146,24 @@ describe('JobList', () => {
             expect(jobCards).toHaveLength(1);
             expect(await screen.findByText('Software Engineer')).toBeInTheDocument();
         })
+        it('should trim the search term', async () => {
+            const mockRetrievedJobs = [
+                JobMother.createWithCustomValues({
+                    title: 'Software Engineer'
+                }),
+                JobMother.createWithCustomValues({
+                    title: 'Data Scientist'
+                }),
+            ];
+
+            render(<JobList jobs={mockRetrievedJobs}/>)
+
+            await typeSearchQuery('  Software Engineer  ');
+
+            const jobCards = await screen.findAllByTestId('job-card');
+            expect(jobCards).toHaveLength(1);
+            expect(await screen.findByText('Software Engineer')).toBeInTheDocument();
+        })
     })
     it('should filter jobs when searching and selecting type', async () => {
         const partTimeTitle = 'Data Scientist';
