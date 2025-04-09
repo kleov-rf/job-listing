@@ -24,8 +24,7 @@ export class APIJobRepository implements JobRepository {
         const response = await this.fetchJobs({ job_id_or: [parseInt(id)] });
 
         const { data } = await response.json() as APIJobsResponseDTO;
-        data.map(apiJob => JobEntityMapper.toDomain(apiJob))
-        return [];
+        return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
     private async fetchJobs(extraOptions: APIOptions = {}): Promise<Response> {
