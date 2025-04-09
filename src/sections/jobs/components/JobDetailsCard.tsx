@@ -14,22 +14,27 @@ export const JobDetailsCard = ({job, onApply, hasApplied}: JobDetailsCardProps) 
         <Card className="mb-6">
             <CardHeader>
                 {hasApplied && (
-                    <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">Already applied</span>
+                    <span
+                        className="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">
+                        Already applied
+                    </span>
                 )}
                 <h2 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h2>
                 <p className="text-muted-foreground">
                     <span data-testid="job-details-company">{job.companyNameValue()}</span> •
                     <span data-testid="job-details-location">{job.locationValue()}</span>
                 </p>
-                <Button
-                    type="button"
-                    variant="outline"
-                    className="mt-4 sm:w-fit"
-                    onClick={onApply}
-                    aria-label={`Apply for ${job.titleValue()} at ${job.companyNameValue()}`}
-                >
-                    Apply Now
-                </Button>
+                {!hasApplied && (
+                    <Button
+                        type="button"
+                        variant="outline"
+                        className="mt-4 sm:w-fit"
+                        onClick={onApply}
+                        aria-label={`Apply for ${job.titleValue()} at ${job.companyNameValue()}`}
+                    >
+                        Apply Now
+                    </Button>
+                )}
             </CardHeader>
             <CardContent>
                 <div className="mb-4">
