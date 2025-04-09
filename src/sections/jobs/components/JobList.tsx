@@ -16,7 +16,7 @@ export const JobList: FC<JobListProps> = ({jobs, onApply}) => {
     const [selectedType, setSelectedType] = useState<JobTypeOptions>('ALL')
 
     const filteredJobs = useMemo(() => {
-        const searchMatchedJobs = jobs.filter(job => job.matchesSearch(searchQuery));
+        const searchMatchedJobs = jobs.filter(job => job.matchesSearch(searchQuery.trim()));
         if (selectedType === 'ALL') return searchMatchedJobs
         return searchMatchedJobs.filter(job => job.matchesType(new JobType(selectedType)));
     }, [jobs, searchQuery, selectedType])
