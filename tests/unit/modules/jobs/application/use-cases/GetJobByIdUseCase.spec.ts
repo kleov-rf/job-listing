@@ -1,6 +1,7 @@
 import {describe, expect, it, vi} from "vitest";
 import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository.ts";
 import {GetJobByIdUseCase} from "@/modules/jobs/application/use-cases/GetJobByIdUseCase.ts";
+import {JobMother} from "../../domain/entities/JobMother.ts";
 
 describe('GetJobByIdUseCase', () => {
     it('should call repository to find job by id', async () => {
@@ -14,4 +15,18 @@ describe('GetJobByIdUseCase', () => {
 
         expect(mockJobRepository.findById).toHaveBeenCalledWith(jobId);
     })
+    it('should return job if found', async () => {
+        const mockJobId = '12345';
+        const mockJob = JobMother.createWithCustomValues({
+            id: mockJobId
+        });
+        const mockJobRepository = {
+            findById: vi.fn().mockResolvedValue([mockJob])
+        } as unknown as JobRepository;
+        const getJobByIdUseCase = new GetJobByIdUseCase(mockJobRepository);
+
+        const result = await getJobByIdUseCase.execute(mockJobId);
+
+        expect(result).toEqual([mockJob]);
+    });
 })
