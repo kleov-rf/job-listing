@@ -179,4 +179,25 @@ describe('JobList', () => {
         expect(await screen.findAllByTestId('job-card')).toHaveLength(1);
         expect(await screen.findByText('Software Engineer')).toBeInTheDocument();
     })
+    it('should show no jobs message when no filtered jobs are found', async () => {
+        const mockRetrievedJobs = [
+            JobMother.createWithCustomValues({
+                title: 'Software Engineer',
+                type: JobTypeEnum.FULL_TIME,
+            }),
+            JobMother.createWithCustomValues({
+                title: 'Data Scientist',
+                type: JobTypeEnum.PART_TIME,
+            }),
+        ];
+
+        render(<JobList jobs={mockRetrievedJobs}/>)
+
+        await selectJobTypeOption('Contract');
+
+        const jobCards = screen.queryAllByTestId('job-card');
+        const emptyMessage = await screen.findByText('No jobs found matching your criteria.');
+        expect(jobCards).toHaveLength(0);
+        expect(emptyMessage).toBeInTheDocument();
+    })
 })
