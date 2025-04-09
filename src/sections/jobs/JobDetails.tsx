@@ -30,7 +30,7 @@ export const JobDetails: () => JSX.Element = () => {
 
         fetchJobs();
         fetchJobApplications();
-    }, [getJobByIdUseCase, id])
+    }, [getJobApplicationByJobId, getJobByIdUseCase, id])
 
     const handleOpenApplicationForm = () => {
         setIsApplicationFormShown(true);
