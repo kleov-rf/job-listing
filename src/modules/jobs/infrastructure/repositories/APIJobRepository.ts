@@ -16,6 +16,10 @@ export class APIJobRepository implements JobRepository {
         return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
+    findById(id: string): Promise<Job | null> {
+        throw new Error("Method not implemented.");
+    }
+
     private async fetchJobs(): Promise<Response> {
         const defaultOptions = {
             page: 0,
