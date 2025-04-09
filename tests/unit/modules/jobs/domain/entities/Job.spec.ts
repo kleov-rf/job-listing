@@ -119,6 +119,13 @@ describe('Job', () => {
 
                 expect(job.matchesSearch('tech company')).toBe(true)
             })
+            it('should match job by uppercase company name', () => {
+                const job = JobMother.createWithCustomValues({
+                    companyName: 'Tech Company'
+                })
+
+                expect(job.matchesSearch('TECH COMPANY')).toBe(true)
+            })
         })
     })
 })
