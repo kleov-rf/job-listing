@@ -36,7 +36,7 @@ export class JobApplication {
         return this.email.getValue()
     }
 
-    cvUrlValue() {
-        throw new Error("Method not implemented.")
+    cvUrlValue(): string {
+        return this.cvUrl.getValue()
     }
 }
