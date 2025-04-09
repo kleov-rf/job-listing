@@ -15,7 +15,7 @@ vi.mock('react-router-dom', async () => {
 describe('JobDetails', () => {
     it('should fetch job details on mount', async () => {
         const mockGetJobByIdUseCase = {
-            execute: vi.fn()
+            execute: vi.fn().mockResolvedValue([])
         }
 
         const mockJobContext = {
