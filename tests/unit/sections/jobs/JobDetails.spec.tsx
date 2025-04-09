@@ -140,4 +140,29 @@ describe('JobDetails', () => {
 
         expect(screen.getByText('Apply for this position')).toBeInTheDocument()
     })
+    it('should verify if the job is already applied on mount', async () => {
+        const mockRetrievedJob = JobMother.createDefault();
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([
+                mockRetrievedJob
+            ])
+        }
+        const mockGetJobApplicationByJobId = {
+            execute: vi.fn().mockResolvedValue(true)
+        }
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase,
+            getJobApplicationByJobId: mockGetJobApplicationByJobId
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        expect(mockGetJobApplicationByJobId.execute).toHaveBeenCalled()
+    })
 });
