@@ -2,6 +2,7 @@ import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
 import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository.ts";
 import {JobApplicationRepository} from "@/modules/job-applications/domain/repositories/JobApplicationRepository.ts";
 import {Primitives} from "@codelytv/primitives-type";
+import {JobId} from "@/modules/jobs/domain/value-objects";
 
 export class SubmitApplicationUseCase {
     constructor(
@@ -19,6 +20,7 @@ export class SubmitApplicationUseCase {
             jobId
         }: Primitives<JobApplication>,
     ): Promise<void> {
+        const job = await this.jobRepository.findById(new JobId(jobId))
         const jobApplication = JobApplication.create({
             id,
             name,
