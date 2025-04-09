@@ -40,7 +40,7 @@ export const JobCard: FC<JobCardProps> = ({job}) => {
                         <dt className="font-medium text-sm text-muted-foreground">
                             Description
                         </dt>
-                        <dd className="text-sm text-muted-foreground line-clamp-3" data-testid="job-description">
+                        <dd className="text-sm text-muted-foreground line-clamp-2" data-testid="job-description">
                             {job.descriptionValue() || '-'}
                         </dd>
                     </dl>
