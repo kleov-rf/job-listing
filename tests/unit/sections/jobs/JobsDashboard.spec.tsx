@@ -96,4 +96,23 @@ describe('JobsDashboard', () => {
 
         expect(window.location.pathname).toBe(`/jobs/${mockRetrievedJob.idValue()}`)
     })
+    it('should show skeleton loader when jobs are being fetched', async () => {
+        const mockGetJobsUseCase = {
+            execute: vi.fn().mockResolvedValue([])
+        }
+        const mockJobContext = {
+            getJobsUseCase: mockGetJobsUseCase,
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobsDashboard/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        const skeletonLoader = screen.getByRole('status')
+        expect(skeletonLoader).toBeInTheDocument()
+    })
 })
