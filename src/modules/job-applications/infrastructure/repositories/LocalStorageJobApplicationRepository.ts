@@ -16,7 +16,10 @@ export class LocalStorageJobApplicationRepository implements JobApplicationRepos
     }
 
     getByJobId(jobId: JobId): Promise<JobApplication[]> {
-        this.getAllFromLocalStorage()
+        const jobApplications = this.getAllFromLocalStorage()
+        const jobApplication = jobApplications.get(jobId.getValue());
+
+        return Promise.resolve([JobApplication.create(jobApplication)])
     }
 
     private getAllFromLocalStorage(): Map<string, Primitives<JobApplication>> {
