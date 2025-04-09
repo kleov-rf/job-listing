@@ -16,7 +16,7 @@ export class LocalStorageJobApplicationRepository implements JobApplicationRepos
     }
 
     getByJobId(jobId: JobId): Promise<JobApplication[]> {
-        throw new Error("Method not implemented.");
+        this.getAllFromLocalStorage()
     }
 
     private getAllFromLocalStorage(): Map<string, Primitives<JobApplication>> {
