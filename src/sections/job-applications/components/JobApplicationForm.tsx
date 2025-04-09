@@ -1,4 +1,4 @@
-import { Button } from "@/sections/shared/components/Button.tsx";
+import {Button} from "@/sections/shared/components/Button.tsx";
 import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/sections/shared/components/Dialog.tsx";
 import {Input} from "@/sections/shared/components/Input.tsx";
 import {Label} from "@/sections/shared/components/Label.tsx";
@@ -9,13 +9,14 @@ import {Primitives} from "@codelytv/primitives-type";
 import {FormEvent} from "react";
 
 interface JobApplicationFormProps {
-    jobId: string;
-    isOpen: boolean;
-    onClose: () => void;
+    jobId: string,
+    isOpen: boolean,
+    onClose: () => void,
+    onSubmit: () => void
 }
 
-export const JobApplicationForm = ({jobId, isOpen, onClose}: JobApplicationFormProps) => {
-    const { submitApplicationUseCase } = useJobContext()
+export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplicationFormProps) => {
+    const {submitApplicationUseCase} = useJobContext()
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -27,8 +28,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose}: JobApplicationFormP
             jobId,
         } as Primitives<JobApplication>
         await submitApplicationUseCase.execute(jobApplication)
-
-        onClose()
+        onSubmit()
     }
 
     return (
