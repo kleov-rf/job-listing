@@ -49,6 +49,12 @@ export class JobApplication {
     }
 
     toPrimitives() {
-        throw new Error("Method not implemented.");
+        return {
+            id: this.id.value,
+            name: this.name.value,
+            email: this.email.value,
+            cvUrl: this.cvUrl.value,
+            jobId: this.jobId.value
+        }
     }
 }
