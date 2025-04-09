@@ -47,4 +47,8 @@ export class JobApplication {
     jobIdValue(): string {
         return this.jobId.getValue()
     }
+
+    toPrimitives() {
+        throw new Error("Method not implemented.");
+    }
 }

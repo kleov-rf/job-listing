@@ -41,4 +41,16 @@ describe('JobApplication', () => {
 
         expect(jobApplication.jobIdValue()).toEqual(jobId)
     })
+    it('should return its primitives', () => {
+        const jobApplication = JobApplicationMother.createDefault()
+        const primitives = jobApplication.toPrimitives()
+
+        expect(primitives).toEqual({
+            id: jobApplication.idValue(),
+            name: jobApplication.nameValue(),
+            email: jobApplication.emailValue(),
+            cvUrl: jobApplication.cvUrlValue(),
+            jobId: jobApplication.jobIdValue(),
+        })
+    })
 })
