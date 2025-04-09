@@ -28,21 +28,23 @@ export const JobDetails: () => JSX.Element = () => {
         <article>
             <Card className="mb-6">
                 <CardHeader>
-                    <h1 className="text-2xl font-bold">{job.titleValue()}</h1>
+                    <h1 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h1>
                     <p className="text-muted-foreground">
-                        <span>{job.companyNameValue()}</span> • <span>{job.locationValue()}</span>
+                        <span data-testid="job-details-company">{job.companyNameValue()}</span> •
+                        <span data-testid="job-details-location">{job.locationValue()}</span>
                     </p>
                 </CardHeader>
                 <CardContent>
                     <div className="mb-4">
                         <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-                              role="status">
+                              role="status" data-testid="job-details-type">
                             {job.typeValue()}
                         </span>
                     </div>
                     <section className="prose max-w-none">
                         <h2 className="text-lg font-medium mb-2">Job Description</h2>
-                        <p className="whitespace-pre-line">{job.descriptionValue()}</p>
+                        <p className="whitespace-pre-line"
+                           data-testid="job-details-description">{job.descriptionValue()}</p>
                     </section>
                 </CardContent>
             </Card>
