@@ -10,7 +10,7 @@ export class JobEntityMapper {
             companyName: apiJob.company,
             location: apiJob.short_location,
             type: this.mapEmploymentStatusToJobType(apiJob.employment_statuses[0]),
-            description: apiJob.long_description
+            description: apiJob.company_object.long_description
         });
     }
 

@@ -36,6 +36,9 @@ describe('APIJobRepository', () => {
             company: 'Tech Corp',
             short_location: "Atlanta, GA",
             employment_statuses: ['Full-time'],
+            company_object: {
+                long_description: 'Tech Corp is a leading technology company.',
+            }
         } as APIJobDTO;
         const mockAPIJobTwo = {
             id: 2,
@@ -43,6 +46,9 @@ describe('APIJobRepository', () => {
             company: 'Dev Inc',
             short_location: "New York, NY",
             employment_statuses: ['Part-time'],
+            company_object: {
+                long_description: 'Dev Inc is a software development company.',
+            }
         }
         const mockAPIResponse = {
             data: [mockAPIJobOne, mockAPIJobTwo],

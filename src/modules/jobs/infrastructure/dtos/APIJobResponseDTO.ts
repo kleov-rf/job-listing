@@ -10,7 +10,9 @@ export interface APIJobDTO {
     company: string
     short_location: string
     employment_statuses: APIEmploymentStatus[]
-    long_description: string
+    company_object: {
+        long_description: string
+    }
 }
 
 export interface APIJobsResponseDTO {

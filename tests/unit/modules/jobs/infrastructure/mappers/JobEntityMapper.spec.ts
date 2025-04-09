@@ -17,7 +17,9 @@ describe('JobEntityMapper', () => {
                 company: companyName,
                 short_location: location,
                 employment_statuses: ['Full-time'],
-                long_description: description,
+                company_object: {
+                    long_description: description,
+                },
             } as APIJobDTO
 
 
@@ -44,7 +46,9 @@ describe('JobEntityMapper', () => {
                 company: companyName,
                 short_location: location,
                 employment_statuses: ['Part-time'],
-                long_description: description,
+                company_object: {
+                    long_description: description,
+                },
             } as APIJobDTO
 
             const result = JobEntityMapper.toDomain(apiJob)
@@ -70,7 +74,9 @@ describe('JobEntityMapper', () => {
                 company: companyName,
                 short_location: location,
                 employment_statuses: [APIEmploymentStatus.CONTRACT],
-                long_description: description,
+                company_object: {
+                    long_description: description,
+                },
             } as APIJobDTO
 
             const result = JobEntityMapper.toDomain(apiJob)
@@ -96,7 +102,9 @@ describe('JobEntityMapper', () => {
                 company: companyName,
                 short_location: location,
                 employment_statuses: [],
-                long_description: description,
+                company_object: {
+                    long_description: description,
+                },
             } as APIJobDTO
 
             const result = JobEntityMapper.toDomain(apiJob)
