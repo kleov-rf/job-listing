@@ -10,12 +10,13 @@ export class JobApplication {
     ) {
     }
 
-    public static create({
-                             id,
-                             name,
-                             email,
-                             cvUrl,
-                         }: Primitives<JobApplication>): JobApplication {
+    public static create(
+        {
+            id,
+            name,
+            email,
+            cvUrl,
+        }: Primitives<JobApplication>): JobApplication {
         return new JobApplication(
             new JobApplicationId(id),
             new Name(name),
