@@ -5,10 +5,11 @@ import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.t
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 
 interface JobCardProps {
-    job: Job;
+    job: Job,
+    onApply: (jobId: string) => void
 }
 
-export const JobCard: FC<JobCardProps> = ({job}) => {
+export const JobCard: FC<JobCardProps> = ({job, onApply}) => {
     return (
         <motion.li
             initial={{opacity: 0, y: 20}}

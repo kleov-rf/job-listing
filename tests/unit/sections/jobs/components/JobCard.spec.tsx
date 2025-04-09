@@ -1,6 +1,6 @@
 import {JobCard} from "@/sections/jobs/components/JobCard.tsx";
 import {render, screen} from "@testing-library/react";
-import {describe, it, expect} from "vitest";
+import {describe, it, expect, vi} from "vitest";
 import {JobMother} from "../../../modules/jobs/domain/entities/JobMother.ts";
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 
@@ -40,5 +40,16 @@ describe('JobCard', () => {
 
         expect(screen.getByTestId('job-description')).toBeInTheDocument()
         expect(screen.getByText('-')).toBeInTheDocument()
+    })
+    it('should call on apply when clicking on apply now button', () => {
+        const mockJob = JobMother.createDefault()
+        const mockOnApply = vi.fn()
+
+        render(<JobCard job={mockJob} onApply={mockOnApply}/>)
+
+        const applyButton = screen.getByRole('button', {name: `Apply for ${mockJob.titleValue()} at ${mockJob.companyNameValue()}`})
+        applyButton.click()
+
+        expect(mockOnApply).toHaveBeenCalledWith(mockJob.idValue())
     })
 })
