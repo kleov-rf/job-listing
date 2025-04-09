@@ -64,7 +64,11 @@ export const JobDetails: () => JSX.Element = () => {
         <article>
             {renderBackButton()}
             {job ? (
-                <JobDetailsCard job={job} onApply={handleOpenApplicationForm}/>
+                <>
+                    <JobDetailsCard job={job} onApply={handleOpenApplicationForm}/>
+                    <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm}
+                                        jobId={job.idValue()}/>
+                </>
             ) : (
                 <section className="text-center py-12">
                     <p className="text-gray-500">
@@ -72,7 +76,6 @@ export const JobDetails: () => JSX.Element = () => {
                     </p>
                 </section>
             )}
-            <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm}/>
         </article>
     )
 }
