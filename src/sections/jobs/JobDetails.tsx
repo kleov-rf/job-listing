@@ -1,14 +1,16 @@
 import {JSX, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
+import {Button} from "@/sections/shared/components/Button.tsx";
 
 export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
     const [job, setJob] = useState<Job>();
     const {getJobByIdUseCase} = useJobContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -27,6 +29,15 @@ export const JobDetails: () => JSX.Element = () => {
 
     return (
         <article>
+            <nav aria-label="Breadcrumb">
+                <Button
+                    variant="outline"
+                    className="mb-6"
+                    onClick={() => navigate('/')}
+                >
+                    ← <span>Back to Listings</span>
+                </Button>
+            </nav>
             <Card className="mb-6">
                 <CardHeader>
                     <h1 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h1>
