@@ -4,13 +4,14 @@ import {JobCard} from "@/sections/jobs/components/JobCard.tsx";
 import {JobType} from "@/modules/jobs/domain/value-objects";
 import {JobTypeOptions, JobTypeSelect} from "@/sections/jobs/components/JobTypeSelect.tsx";
 import {JobSearchInput} from "@/sections/jobs/components/JobSearchInput.tsx";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 
 interface JobListProps {
-    jobs: Job[];
+    jobs: Job[],
+    onApply: (jobId: string) => void
 }
 
-export const JobList: FC<JobListProps> = ({jobs}) => {
+export const JobList: FC<JobListProps> = ({jobs, onApply}) => {
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedType, setSelectedType] = useState<JobTypeOptions>('ALL')
 
@@ -22,7 +23,7 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
 
     const jobCards = useMemo(() => {
         return filteredJobs.map(job => (
-            <JobCard key={job.idValue()} job={job} onApply={() => {}}/>
+            <JobCard key={job.idValue()} job={job} onApply={onApply}/>
         ));
     }, [filteredJobs])
 
@@ -45,8 +46,8 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
             </ul>
             {filteredJobs.length === 0 && (
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
                     className="pt-8 text-center text-muted-foreground"
                     role="status"
                     aria-live="polite"
