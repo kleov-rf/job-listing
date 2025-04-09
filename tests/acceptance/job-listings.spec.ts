@@ -126,5 +126,11 @@ test.describe('Job Listings', () => {
 
     const jobDetailsLocation = page.locator('[data-testid="job-details-location"]')
     await expect(jobDetailsLocation).toBeVisible()
+
+    const jobDetailsType = page.locator('[data-testid="job-details-type"]')
+    await expect(jobDetailsType).toBeVisible()
+
+    const jobDetailsDescription = page.locator('[data-testid="job-details-description"]')
+    await expect(jobDetailsDescription).toBeVisible()
   })
 })
