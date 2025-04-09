@@ -3,6 +3,7 @@ import {APIJobRepository} from "@/modules/jobs/infrastructure/repositories/APIJo
 import {APIJobDTO, APIJobsResponseDTO} from "@/modules/jobs/infrastructure/dtos/APIJobResponseDTO.ts";
 import {JobEntityMapper} from "@/modules/jobs/infrastructure/mappers/JobEntityMapper.ts";
 import {JobMother} from "../../domain/entities/JobMother.ts";
+import {JobId} from "@/modules/jobs/domain/value-objects";
 
 describe('APIJobRepository', () => {
     describe('get all jobs', () => {
@@ -99,7 +100,7 @@ describe('APIJobRepository', () => {
             })
             global.fetch = mockFetch
 
-            await jobRepository.findById('1')
+            await jobRepository.findById(new JobId('1'))
 
             expect(mockFetch).toHaveBeenCalledWith('https://api.theirstack.com/v1/jobs/search', {
                 method: 'POST',
@@ -138,7 +139,7 @@ describe('APIJobRepository', () => {
             vi.spyOn(JobEntityMapper, 'toDomain')
             const jobRepository = new APIJobRepository()
 
-            await jobRepository.findById('1')
+            await jobRepository.findById(new JobId('1'))
 
             expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJob);
         })
@@ -152,7 +153,7 @@ describe('APIJobRepository', () => {
             vi.spyOn(JobEntityMapper, 'toDomain').mockReturnValue(mappedJob)
             const jobRepository = new APIJobRepository()
 
-            const job = await jobRepository.findById('1')
+            const job = await jobRepository.findById(new JobId('1'))
 
             expect(job).toEqual([mappedJob])
         })
@@ -162,7 +163,7 @@ describe('APIJobRepository', () => {
             })
             const jobRepository = new APIJobRepository()
 
-            const job = await jobRepository.findById('1')
+            const job = await jobRepository.findById(new JobId('1'))
 
             expect(job).toEqual([])
         })

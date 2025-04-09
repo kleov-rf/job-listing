@@ -2,6 +2,7 @@ import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository.ts
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {APIJobsResponseDTO} from "@/modules/jobs/infrastructure/dtos/APIJobResponseDTO.ts";
 import {JobEntityMapper} from "@/modules/jobs/infrastructure/mappers/JobEntityMapper.ts";
+import {JobId} from "@/modules/jobs/domain/value-objects";
 
 interface APIOptions {
     job_id_or?: number[]
@@ -20,8 +21,8 @@ export class APIJobRepository implements JobRepository {
         return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
-    async findById(id: string): Promise<Job[]> {
-        const response = await this.fetchJobs({ job_id_or: [parseInt(id)] });
+    async findById(id: JobId): Promise<Job[]> {
+        const response = await this.fetchJobs({ job_id_or: [parseInt(id.getValue())] });
 
         if (!response.ok) return []
 
