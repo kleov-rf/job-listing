@@ -52,4 +52,42 @@ describe('JobApplicationForm', () => {
 
         expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalledWith(mockJobApplication.toPrimitives());
     })
+    it('should close the modal when the form is submitted', async () => {
+        const mockJobId = '1'
+        const mockJobApplication = JobApplicationMother.createWithCustomValues({
+            id: '1234-5678-9101-1121',
+            jobId: mockJobId
+        });
+        const mockSubmitApplicationUseCase = {
+            execute: vi.fn()
+        }
+
+        const mockJobContext = {
+            submitApplicationUseCase: mockSubmitApplicationUseCase
+        } as unknown as JobContextType
+
+        const onCloseMock = vi.fn()
+
+        render(
+            <JobContext.Provider value={mockJobContext}>
+                <JobApplicationForm isOpen={true} onClose={onCloseMock} jobId={mockJobId}/>
+            </JobContext.Provider>
+        )
+
+        const nameInput = screen.getByLabelText('Full Name');
+        await userEvent.type(nameInput, mockJobApplication.nameValue());
+
+        const emailInput = screen.getByLabelText('Email');
+        await userEvent.type(emailInput, mockJobApplication.emailValue());
+
+        const resumeInput = screen.getByLabelText('CV URL');
+        await userEvent.type(resumeInput, mockJobApplication.cvUrlValue());
+
+        const submitButton = screen.getByRole('button', {name: 'Submit application'});
+        submitButton.click()
+
+        await waitFor(() => {
+            expect(onCloseMock).toHaveBeenCalled();
+        })
+    })
 })
