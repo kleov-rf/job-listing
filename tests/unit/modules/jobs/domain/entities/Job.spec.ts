@@ -143,6 +143,13 @@ describe('Job', () => {
 
                 expect(job.matchesSearch('Austin')).toBe(true)
             })
+            it('should match job by lowercase location', () => {
+                const job = JobMother.createWithCustomValues({
+                    location: 'Austin, TX'
+                })
+
+                expect(job.matchesSearch('austin, tx')).toBe(true)
+            })
         })
     })
 })
