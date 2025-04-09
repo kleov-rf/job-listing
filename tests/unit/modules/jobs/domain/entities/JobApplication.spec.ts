@@ -33,4 +33,12 @@ describe('JobApplication', () => {
 
         expect(jobApplication.cvUrlValue()).toEqual(cvUrl)
     })
+    it('should return job id value', () => {
+        const jobId = '1';
+        const jobApplication = JobApplicationMother.createWithCustomValues({
+            jobId
+        })
+
+        expect(jobApplication.jobIdValue()).toEqual(jobId)
+    })
 })
