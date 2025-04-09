@@ -8,7 +8,7 @@ describe('JobCard', () => {
     it('should show job details', () => {
         const mockJob = JobMother.createDefault()
 
-        render(<JobCard job={mockJob}/>)
+        render(<JobCard job={mockJob} onApply={vi.fn()}/>)
 
         expect(screen.getByTestId('job-title')).toBeInTheDocument()
         expect(screen.getByText(mockJob.titleValue())).toBeInTheDocument()
@@ -26,7 +26,7 @@ describe('JobCard', () => {
             location: undefined,
         })
 
-        render(<JobCard job={mockJob}/>)
+        render(<JobCard job={mockJob} onApply={vi.fn()}/>)
 
         expect(screen.getByTestId('job-location')).toBeInTheDocument()
         expect(screen.getByText('-')).toBeInTheDocument()
@@ -36,7 +36,7 @@ describe('JobCard', () => {
             description: undefined,
         })
 
-        render(<JobCard job={mockJob}/>)
+        render(<JobCard job={mockJob} onApply={vi.fn()}/>)
 
         expect(screen.getByTestId('job-description')).toBeInTheDocument()
         expect(screen.getByText('-')).toBeInTheDocument()

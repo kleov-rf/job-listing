@@ -22,7 +22,7 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
 
     const jobCards = useMemo(() => {
         return filteredJobs.map(job => (
-            <JobCard key={job.idValue()} job={job}/>
+            <JobCard key={job.idValue()} job={job} onApply={() => {}}/>
         ));
     }, [filteredJobs])
 
