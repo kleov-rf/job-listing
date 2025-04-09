@@ -25,4 +25,12 @@ describe('JobApplication', () => {
 
         expect(jobApplication.emailValue()).toEqual(email)
     })
+    it('should return cv url value', () => {
+        const cvUrl = 'https://example.com/cv.pdf';
+        const jobApplication = JobApplicationMother.createWithCustomValues({
+            cvUrl
+        })
+
+        expect(jobApplication.cvUrlValue()).toEqual(cvUrl)
+    })
 })
