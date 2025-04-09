@@ -127,5 +127,15 @@ describe('Job', () => {
                 expect(job.matchesSearch('TECH COMPANY')).toBe(true)
             })
         })
+        describe('by location', () => {
+            it('should match job by complete location', () => {
+                const jobLocation = 'Austin, TX';
+                const job = JobMother.createWithCustomValues({
+                    location: jobLocation
+                })
+
+                expect(job.matchesSearch(jobLocation)).toBe(true)
+            })
+        })
     })
 })
