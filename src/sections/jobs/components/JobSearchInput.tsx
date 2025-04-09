@@ -16,7 +16,7 @@ export const JobSearchInput = ({currentQuery, onChange}: JobSearchInputProps) =>
                 defaultValue={currentQuery}
                 onChange={e => onChange(e.target.value)}
                 placeholder="Search jobs..."
-                className="w-full sm:max-w-sm"
+                className="w-full sm:w-60"
                 aria-label="Search jobs"
             />
         </>
