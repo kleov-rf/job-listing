@@ -6,6 +6,10 @@ A modern, accessible job listing application built with React, TypeScript, and V
 
 - Fetch jobs from the TheirStack API
 - Display job listings with key details (title, company, location, type)
+- Filter job listings by type
+- Search for specific job titles
+- Apply for jobs
+- Responsive design for mobile and desktop
 
 ## Getting Started
 
