@@ -6,6 +6,6 @@ export class GetJobApplicationByJobIdUseCase {
     constructor(private readonly repository: JobApplicationRepository) {}
 
     async execute(jobId: string): Promise<JobApplication[]> {
-        await this.repository.getByJobId(new JobId(jobId))
+        return await this.repository.getByJobId(new JobId(jobId))
     }
 }
