@@ -65,34 +65,46 @@ describe('Job', () => {
         expect(job.matchesType(jobType)).toBe(false)
     })
     describe('match search', () => {
-        it('should match job by complete title', () => {
-            const jobTitle = 'Software Engineer';
-            const job = JobMother.createWithCustomValues({
-                title: jobTitle
-            })
+        describe('by title', () => {
+            it('should match job by complete title', () => {
+                const jobTitle = 'Software Engineer';
+                const job = JobMother.createWithCustomValues({
+                    title: jobTitle
+                })
 
-            expect(job.matchesSearch(jobTitle)).toBe(true)
+                expect(job.matchesSearch(jobTitle)).toBe(true)
+            })
+            it('should match job by partial title', () => {
+                const job = JobMother.createWithCustomValues({
+                    title: 'Software Engineer'
+                })
+
+                expect(job.matchesSearch('Software')).toBe(true)
+            })
+            it('should match job by lowercase title', () => {
+                const job = JobMother.createWithCustomValues({
+                    title: 'Software Engineer'
+                })
+
+                expect(job.matchesSearch('software engineer')).toBe(true)
+            })
+            it('should match job by uppercase title', () => {
+                const job = JobMother.createWithCustomValues({
+                    title: 'Software Engineer'
+                })
+
+                expect(job.matchesSearch('SOFTWARE ENGINEER')).toBe(true)
+            })
         })
-        it('should match job by partial title', () => {
-            const job = JobMother.createWithCustomValues({
-                title: 'Software Engineer'
-            })
+        describe('by company name', () => {
+            it('should match job by complete company name', () => {
+                const companyName = 'Tech Company';
+                const job = JobMother.createWithCustomValues({
+                    companyName
+                })
 
-            expect(job.matchesSearch('Software')).toBe(true)
-        })
-        it('should match job by lowercase title', () => {
-            const job = JobMother.createWithCustomValues({
-                title: 'Software Engineer'
+                expect(job.matchesSearch(companyName)).toBe(true)
             })
-
-            expect(job.matchesSearch('software engineer')).toBe(true)
-        })
-        it('should match job by uppercase title', () => {
-            const job = JobMother.createWithCustomValues({
-                title: 'Software Engineer'
-            })
-
-            expect(job.matchesSearch('SOFTWARE ENGINEER')).toBe(true)
         })
     })
 })
