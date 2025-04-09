@@ -162,7 +162,7 @@ test.describe('Job Listings', () => {
     const submitButton = page.locator('button:has-text("Submit application")')
     await submitButton.click()
 
-    const successMessage = page.locator('[data-testid="applied-position-message"]')
+    const successMessage = page.locator('[data-testid="job-details-applied-label"]')
     await expect(successMessage).toBeVisible()
   })
 })
