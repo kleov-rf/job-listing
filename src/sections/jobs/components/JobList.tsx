@@ -3,7 +3,7 @@ import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {JobCard} from "@/sections/jobs/components/JobCard.tsx";
 import {JobType} from "@/modules/jobs/domain/value-objects";
 import {JobTypeOptions, JobTypeSelect} from "@/sections/jobs/components/JobTypeSelect.tsx";
-import {Input} from "@/sections/shared/components/Input.tsx";
+import {JobSearchInput} from "@/sections/jobs/components/JobSearchInput.tsx";
 
 interface JobListProps {
     jobs: Job[];
@@ -35,18 +35,7 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
     return (
         <section className="space-y-6" aria-label="Job listings">
             <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-start">
-                <label htmlFor="job-search" className="sr-only">
-                    Search jobs
-                </label>
-                <Input
-                    id="job-search"
-                    type="text"
-                    defaultValue={searchQuery}
-                    onChange={e => debouncedSetSearchQuery(e.target.value)}
-                    placeholder="Search jobs..."
-                    className="w-full sm:max-w-sm"
-                    aria-label="Search jobs"
-                />
+                <JobSearchInput currentQuery={searchQuery} onChange={debouncedSetSearchQuery}/>
                 <JobTypeSelect currentType={selectedType} handleTypeChange={handleTypeChange}/>
             </header>
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
