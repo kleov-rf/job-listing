@@ -5,7 +5,7 @@ import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 import {Button} from "@/sections/shared/components/Button.tsx";
-import {Dialog, DialogContent, DialogHeader, DialogTitle} from "../shared/components/Dialog";
+import {JobApplicationForm} from "@/sections/jobs/components/JobApplicationForm.tsx";
 
 export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
@@ -26,6 +26,10 @@ export const JobDetails: () => JSX.Element = () => {
 
         fetchJobs();
     }, [getJobByIdUseCase, id])
+
+    const handleCloseApplicationForm = () => {
+        setIsApplicationFormShown(false);
+    }
 
     const renderBackButton = () => {
         return (
@@ -98,16 +102,7 @@ export const JobDetails: () => JSX.Element = () => {
                     </section>
                 </CardContent>
             </Card>
-            <Dialog open={isApplicationFormShown} onOpenChange={setIsApplicationFormShown}
-                    aria-labelledby="application-form-title">
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle className="text-2xl font-bold" id="application-form-title">
-                            Apply for this position
-                        </DialogTitle>
-                    </DialogHeader>
-                </DialogContent>
-            </Dialog>
+            <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm} />
         </article>
     )
 }
