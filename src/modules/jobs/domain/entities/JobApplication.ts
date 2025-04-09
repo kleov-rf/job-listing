@@ -28,6 +28,6 @@ export class JobApplication {
     }
 
     nameValue() {
-        throw new Error("Method not implemented.")
+        return this.name.getValue()
     }
 }
