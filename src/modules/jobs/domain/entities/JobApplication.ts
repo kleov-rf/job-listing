@@ -7,14 +7,15 @@ export class JobApplication {
         readonly name: Name,
         readonly email: Email,
         readonly cvUrl: CVUrl,
-    ) {}
+    ) {
+    }
 
     public static create({
-        id,
-        name,
-        email,
-        cvUrl,
-    }: Primitives<JobApplication>): JobApplication {
+                             id,
+                             name,
+                             email,
+                             cvUrl,
+                         }: Primitives<JobApplication>): JobApplication {
         return new JobApplication(
             new JobApplicationId(id),
             new Name(name),
@@ -27,7 +28,11 @@ export class JobApplication {
         return this.id.getValue()
     }
 
-    nameValue() {
+    nameValue(): string {
         return this.name.getValue()
+    }
+
+    emailValue() {
+        throw new Error("Method not implemented.")
     }
 }

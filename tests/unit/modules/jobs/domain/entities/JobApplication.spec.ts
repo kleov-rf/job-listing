@@ -17,4 +17,12 @@ describe('JobApplication', () => {
 
         expect(jobApplication.nameValue()).toEqual(name)
     })
+    it('should return email value', () => {
+        const email = 'john.doe@gmail.com';
+        const jobApplication = JobApplicationMother.createWithCustomValues({
+            email
+        })
+
+        expect(jobApplication.emailValue()).toEqual(email)
+    })
 })
