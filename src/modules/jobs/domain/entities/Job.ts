@@ -60,6 +60,6 @@ export class Job {
     }
 
     matchesSearch(jobTitle: string) {
-        throw new Error("Method not implemented.")
+        return this.title.getValue() === jobTitle
     }
 }
