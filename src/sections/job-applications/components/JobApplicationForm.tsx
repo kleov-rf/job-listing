@@ -55,6 +55,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplic
                             <Input
                                 id="fullName"
                                 ref={nameInput}
+                                required
                                 type="text"
                                 placeholder="John Doe"
                                 aria-required="true"
@@ -65,6 +66,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplic
                             <Input
                                 id="email"
                                 ref={emailInput}
+                                required
                                 type="email"
                                 placeholder="john@example.com"
                                 aria-required="true"
@@ -75,6 +77,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplic
                             <Input
                                 id="cvUrl"
                                 ref={cvUrlInput}
+                                required
                                 type="url"
                                 placeholder="https://example.com/cv.pdf"
                                 aria-required="true"
