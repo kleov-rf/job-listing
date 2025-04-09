@@ -2,10 +2,10 @@ import {JSX, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
-import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
-import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
+import {Card} from "@/sections/shared/components/Card.tsx";
 import {Button} from "@/sections/shared/components/Button.tsx";
 import {JobApplicationForm} from "@/sections/jobs/components/JobApplicationForm.tsx";
+import {JobDetailsCard} from "@/sections/jobs/components/JobDetailsCard.tsx";
 
 export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
@@ -26,6 +26,10 @@ export const JobDetails: () => JSX.Element = () => {
 
         fetchJobs();
     }, [getJobByIdUseCase, id])
+
+    const handleOpenApplicationForm = () => {
+        setIsApplicationFormShown(true);
+    }
 
     const handleCloseApplicationForm = () => {
         setIsApplicationFormShown(false);
@@ -56,53 +60,19 @@ export const JobDetails: () => JSX.Element = () => {
         )
     }
 
-    if (!job) {
-        return (
-            <>
-                {renderBackButton()}
+    return (
+        <article>
+            {renderBackButton()}
+            {job ? (
+                <JobDetailsCard job={job} onApply={handleOpenApplicationForm}/>
+            ) : (
                 <section className="text-center py-12">
                     <p className="text-gray-500">
                         Sorry! We couldn't find this job.
                     </p>
                 </section>
-            </>
-        )
-    }
-
-    return (
-        <article>
-            {renderBackButton()}
-            <Card className="mb-6">
-                <CardHeader>
-                    <h2 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h2>
-                    <p className="text-muted-foreground">
-                        <span data-testid="job-details-company">{job.companyNameValue()}</span> •
-                        <span data-testid="job-details-location">{job.locationValue()}</span>
-                    </p>
-                    <Button
-                        variant="outline"
-                        className="mt-4 sm:w-fit"
-                        onClick={() => setIsApplicationFormShown(true)}
-                        aria-label={`Apply for ${job.titleValue()} at ${job.companyNameValue()}`}
-                    >
-                        Apply Now
-                    </Button>
-                </CardHeader>
-                <CardContent>
-                    <div className="mb-4">
-                        <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
-                              role="status" data-testid="job-details-type">
-                            {renderJobTypeLabel(job.typeValue())}
-                        </span>
-                    </div>
-                    <section className="prose max-w-none">
-                        <h3 className="text-lg font-medium mb-2">Job Description</h3>
-                        <p className="whitespace-pre-line"
-                           data-testid="job-details-description">{job.descriptionValue()}</p>
-                    </section>
-                </CardContent>
-            </Card>
-            <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm} />
+            )}
+            <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm}/>
         </article>
     )
 }

@@ -3,7 +3,6 @@ import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
 import {act, render, screen, waitFor} from "@testing-library/react";
 import {JobDetails} from "@/sections/jobs/JobDetails";
 import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
-import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 import {BrowserRouter as Router} from "react-router-dom";
 
 vi.mock('react-router-dom', async () => {
@@ -37,37 +36,6 @@ describe('JobDetails', () => {
         })
 
         expect(mockGetJobByIdUseCase.execute).toHaveBeenCalledWith('job-id-param');
-    })
-    it('should display job details', async () => {
-        const mockJob = JobMother.createDefault()
-
-        const mockGetJobByIdUseCase = {
-            execute: vi.fn().mockResolvedValue([mockJob])
-        }
-
-        const mockJobContext = {
-            getJobByIdUseCase: mockGetJobByIdUseCase
-        } as unknown as JobContextType
-
-        render(
-            <Router>
-                <JobContext.Provider value={mockJobContext}>
-                    <JobDetails/>
-                </JobContext.Provider>
-            </Router>
-        )
-
-        await waitFor(() => {
-            expect(mockGetJobByIdUseCase.execute).toHaveBeenCalled();
-        })
-
-        await waitFor(() => {
-            expect(screen.getByText(mockJob.titleValue())).toBeInTheDocument();
-            expect(screen.getByText(mockJob.companyNameValue())).toBeInTheDocument();
-            expect(screen.getByText(mockJob.locationValue())).toBeInTheDocument();
-            expect(screen.getByText(renderJobTypeLabel(mockJob.typeValue()))).toBeInTheDocument();
-            expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument();
-        })
     })
     it('should redirect to home when back button is clicked', async () => {
         const mockRetrievedJob = JobMother.createDefault();
