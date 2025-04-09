@@ -27,6 +27,8 @@ export const JobApplicationForm = ({jobId, isOpen, onClose}: JobApplicationFormP
             jobId,
         } as Primitives<JobApplication>
         await submitApplicationUseCase.execute(jobApplication)
+
+        onClose()
     }
 
     return (
