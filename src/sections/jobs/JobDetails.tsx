@@ -12,7 +12,7 @@ export const JobDetails: () => JSX.Element = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [job, setJob] = useState<Job>();
     const [isApplicationFormShown, setIsApplicationFormShown] = useState(false);
-    const {getJobByIdUseCase} = useJobContext();
+    const {getJobByIdUseCase, getJobApplicationByJobId} = useJobContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,7 +24,12 @@ export const JobDetails: () => JSX.Element = () => {
             setIsLoading(false);
         };
 
+        const fetchJobApplications = async () => {
+            await getJobApplicationByJobId.execute(id!);
+        };
+
         fetchJobs();
+        fetchJobApplications();
     }, [getJobByIdUseCase, id])
 
     const handleOpenApplicationForm = () => {

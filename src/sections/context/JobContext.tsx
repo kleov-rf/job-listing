@@ -6,11 +6,15 @@ import {
     LocalStorageJobApplicationRepository
 } from "@/modules/job-applications/infrastructure/repositories/LocalStorageJobApplicationRepository.ts";
 import {SubmitApplicationUseCase} from "@/modules/job-applications/application/use-cases/SubmitApplicationUseCase.ts";
+import {
+    GetJobApplicationByJobIdUseCase
+} from "@/modules/job-applications/application/use-cases/GetJobApplicationByJobIdUseCase.ts";
 
 export interface JobContextType {
     getJobsUseCase: GetJobsUseCase;
     getJobByIdUseCase: GetJobByIdUseCase;
     submitApplicationUseCase: SubmitApplicationUseCase;
+    getJobApplicationByJobId: GetJobApplicationByJobIdUseCase;
 }
 
 export const JobContext = createContext<JobContextType | undefined>(undefined)
@@ -21,11 +25,13 @@ export const JobProvider = ({children}: { children: ReactNode }) => {
     const getJobsUseCase = new GetJobsUseCase(jobRepository);
     const getJobByIdUseCase = new GetJobByIdUseCase(jobRepository);
     const submitApplicationUseCase = new SubmitApplicationUseCase(jobApplicationRepository, jobRepository);
+    const getJobApplicationByJobId = new GetJobApplicationByJobIdUseCase(jobApplicationRepository);
 
     const value = {
         getJobsUseCase,
         getJobByIdUseCase,
-        submitApplicationUseCase
+        submitApplicationUseCase,
+        getJobApplicationByJobId
     }
 
     return <JobContext.Provider value={value}>{children}</JobContext.Provider>
