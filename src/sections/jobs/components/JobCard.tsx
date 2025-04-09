@@ -41,7 +41,7 @@ export const JobCard: FC<JobCardProps> = ({job}) => {
                             Description
                         </dt>
                         <dd className="text-sm text-muted-foreground line-clamp-3" data-testid="job-description">
-                            {job.descriptionValue()}
+                            {job.descriptionValue() || '-'}
                         </dd>
                     </dl>
                 </CardContent>
