@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
+import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 
 export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
@@ -38,7 +39,7 @@ export const JobDetails: () => JSX.Element = () => {
                     <div className="mb-4">
                         <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
                               role="status" data-testid="job-details-type">
-                            {job.typeValue()}
+                            {renderJobTypeLabel(job.typeValue())}
                         </span>
                     </div>
                     <section className="prose max-w-none">

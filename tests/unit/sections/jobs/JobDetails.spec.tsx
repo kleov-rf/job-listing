@@ -3,6 +3,7 @@ import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
 import {render, screen, waitFor} from "@testing-library/react";
 import {JobDetails} from "@/sections/jobs/JobDetails";
 import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
+import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 
 vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
@@ -59,7 +60,7 @@ describe('JobDetails', () => {
             expect(screen.getByText(mockJob.titleValue())).toBeInTheDocument();
             expect(screen.getByText(mockJob.companyNameValue())).toBeInTheDocument();
             expect(screen.getByText(mockJob.locationValue())).toBeInTheDocument();
-            expect(screen.getByText(mockJob.typeValue())).toBeInTheDocument();
+            expect(screen.getByText(renderJobTypeLabel(mockJob.typeValue()))).toBeInTheDocument();
             expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument();
         })
     })
