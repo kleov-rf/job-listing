@@ -115,4 +115,27 @@ describe('JobDetails', () => {
         const skeletonLoader = screen.getByRole('status')
         expect(skeletonLoader).toBeInTheDocument()
     })
+    it('should show empty message when no job found', async () => {
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([])
+        }
+
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        await waitFor(() => {
+            expect(mockGetJobByIdUseCase.execute).toHaveBeenCalled();
+        })
+
+        expect(screen.getByText("Sorry! We couldn't find this job.")).toBeInTheDocument()
+    })
 });
