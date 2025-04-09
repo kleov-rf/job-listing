@@ -81,4 +81,31 @@ test.describe('Job Listings', () => {
       await expect(titleLocator).toContainText('Engineer', {ignoreCase: true});
     }
   })
+  test('should filter job listings by both type and search query', async ({ page }) => {
+    await page.goto('/')
+
+    const filterButton = page.locator('#job-type-filter')
+    await filterButton.waitFor({ state: 'visible' });
+    await filterButton.click()
+
+    const fullTimeOption = page.locator('span').filter({ hasText: 'Full-Time' })
+    await fullTimeOption.click()
+
+    const searchInput = page.locator('input[type="text"]')
+    await searchInput.fill('Engineer')
+
+    await page.waitForLoadState('networkidle');
+
+    const jobCards = page.locator('[data-testid="job-card"]');
+    await expect(jobCards).not.toHaveCount(0);
+
+    const count = await jobCards.count();
+    for (let i = 0; i < count; i++) {
+      const typeLocator = jobCards.nth(i).locator('[data-testid="job-type"]');
+      await expect(typeLocator).toHaveText('Full-Time');
+
+      const titleLocator = jobCards.nth(i).locator('[data-testid="job-title"]');
+      await expect(titleLocator).toContainText('Engineer', {ignoreCase: true});
+    }
+  })
 })
