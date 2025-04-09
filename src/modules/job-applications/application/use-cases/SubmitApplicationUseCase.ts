@@ -1,4 +1,4 @@
-import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
+import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository.ts";
 import {JobApplicationRepository} from "@/modules/job-applications/domain/repositories/JobApplicationRepository.ts";
 import {Primitives} from "@codelytv/primitives-type";

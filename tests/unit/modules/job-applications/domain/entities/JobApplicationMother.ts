@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
+import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 
 export class JobApplicationMother {
     private static generateRandomId(): string {

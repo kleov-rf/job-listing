@@ -4,7 +4,7 @@ import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card} from "@/sections/shared/components/Card.tsx";
 import {Button} from "@/sections/shared/components/Button.tsx";
-import {JobApplicationForm} from "@/sections/jobs/components/JobApplicationForm.tsx";
+import {JobApplicationForm} from "@/sections/job-applications/components/JobApplicationForm.tsx";
 import {JobDetailsCard} from "@/sections/jobs/components/JobDetailsCard.tsx";
 
 export const JobDetails: () => JSX.Element = () => {

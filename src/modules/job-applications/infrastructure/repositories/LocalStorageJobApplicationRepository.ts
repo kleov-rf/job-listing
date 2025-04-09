@@ -1,5 +1,5 @@
 import {JobApplicationRepository} from "@/modules/job-applications/domain/repositories/JobApplicationRepository.ts";
-import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
+import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {Primitives} from "@codelytv/primitives-type";
 
 export class LocalStorageJobApplicationRepository implements JobApplicationRepository {

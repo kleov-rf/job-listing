@@ -1,9 +1,9 @@
-import { Button } from "@/sections/shared/components/Button";
+import { Button } from "@/sections/shared/components/Button.tsx";
 import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle} from "@/sections/shared/components/Dialog.tsx";
 import {Input} from "@/sections/shared/components/Input.tsx";
 import {Label} from "@/sections/shared/components/Label.tsx";
 import {useJobContext} from "@/sections/context/JobContext.tsx";
-import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
+import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {v4 as uuidv4} from "uuid";
 import {Primitives} from "@codelytv/primitives-type";
 

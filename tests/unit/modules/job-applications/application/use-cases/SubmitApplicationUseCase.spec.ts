@@ -3,7 +3,7 @@ import {SubmitApplicationUseCase} from "@/modules/job-applications/application/u
 import {JobApplicationRepository} from "@/modules/job-applications/domain/repositories/JobApplicationRepository.ts";
 import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository.ts";
 import {Primitives} from "@codelytv/primitives-type";
-import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
+import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {v4} from "uuid";
 import {JobId} from "@/modules/jobs/domain/value-objects";
 import {JobMother} from "../../../jobs/domain/entities/JobMother.ts";

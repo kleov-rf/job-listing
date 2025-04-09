@@ -2,7 +2,7 @@ import {describe, expect, it, vi} from "vitest"
 import {
     LocalStorageJobApplicationRepository
 } from "@/modules/job-applications/infrastructure/repositories/LocalStorageJobApplicationRepository.ts";
-import {JobApplicationMother} from "../../../jobs/domain/entities/JobApplicationMother.ts";
+import {JobApplicationMother} from "../../domain/entities/JobApplicationMother.ts";
 
 describe('LocalStorageJobApplicationRepository', () => {
     it('should call localStorage to save job application', () => {
