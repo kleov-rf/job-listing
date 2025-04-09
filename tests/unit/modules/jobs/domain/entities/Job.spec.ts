@@ -80,5 +80,12 @@ describe('Job', () => {
 
             expect(job.matchesSearch('Software')).toBe(true)
         })
+        it('should match job by lowercase title', () => {
+            const job = JobMother.createWithCustomValues({
+                title: 'Software Engineer'
+            })
+
+            expect(job.matchesSearch('software engineer')).toBe(true)
+        })
     })
 })
