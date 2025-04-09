@@ -20,9 +20,9 @@ export class APIJobRepository implements JobRepository {
         return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
-    async findById(id: string): Promise<Job | null> {
+    async findById(id: string): Promise<Job[]> {
         await this.fetchJobs({ job_id_or: [parseInt(id)] });
-        return null;
+        return [];
     }
 
     private async fetchJobs(extraOptions: APIOptions = {}): Promise<Response> {
