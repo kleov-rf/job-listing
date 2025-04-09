@@ -17,7 +17,7 @@ export const JobCard: FC<JobCardProps> = ({job}) => {
             transition={{duration: 0.2}}
             data-testid="job-card"
         >
-            <Card className="h-full">
+            <Card className="flex flex-col justify-between h-full">
                 <CardHeader>
                     <h2 className="text-lg font-semibold" data-testid="job-title">{job.titleValue()}</h2>
                     <p className="text-sm text-muted-foreground"
