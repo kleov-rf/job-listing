@@ -3,10 +3,18 @@ import {JobApplicationMother} from "./JobApplicationMother.ts";
 
 describe('JobApplication', () => {
     it('should return id value', () => {
-        const jobId = '1';
-        const job = JobApplicationMother.createWithCustomValues({
-            id: jobId
+        const jobApplicationId = '1';
+        const jobApplication = JobApplicationMother.createWithCustomValues({
+            id: jobApplicationId
         })
-        expect(job.idValue()).toEqual(jobId)
+        expect(jobApplication.idValue()).toEqual(jobApplicationId)
+    })
+    it('should return name value', () => {
+        const name = 'John Doe';
+        const jobApplication = JobApplicationMother.createWithCustomValues({
+            name
+        })
+
+        expect(jobApplication.nameValue()).toEqual(name)
     })
 })

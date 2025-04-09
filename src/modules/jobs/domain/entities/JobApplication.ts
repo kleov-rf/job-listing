@@ -26,4 +26,8 @@ export class JobApplication {
     idValue(): string {
         return this.id.getValue()
     }
+
+    nameValue() {
+        throw new Error("Method not implemented.")
+    }
 }
