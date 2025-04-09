@@ -105,6 +105,13 @@ describe('Job', () => {
 
                 expect(job.matchesSearch(companyName)).toBe(true)
             })
+            it('should match job by partial company name', () => {
+                const job = JobMother.createWithCustomValues({
+                    companyName: 'Tech Company'
+                })
+
+                expect(job.matchesSearch('Tech')).toBe(true)
+            })
         })
     })
 })
