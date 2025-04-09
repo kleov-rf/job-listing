@@ -4,6 +4,7 @@ import {act, render, screen, waitFor} from "@testing-library/react";
 import {JobDetails} from "@/sections/jobs/JobDetails";
 import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
 import {BrowserRouter as Router} from "react-router-dom";
+import {JobApplicationMother} from "../../modules/job-applications/domain/entities/JobApplicationMother.ts";
 
 vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
@@ -179,5 +180,34 @@ describe('JobDetails', () => {
         )
 
         expect(mockGetJobApplicationByJobId.execute).toHaveBeenCalled()
+    })
+    it('should show "Already applied" message when job is already applied', async () => {
+        const mockRetrievedJob = JobMother.createDefault();
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([
+                mockRetrievedJob
+            ])
+        }
+        const mockGetJobApplicationByJobId = {
+            execute: vi.fn().mockResolvedValue([JobApplicationMother.createDefault()])
+        }
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase,
+            getJobApplicationByJobId: mockGetJobApplicationByJobId
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        await waitFor(() => {
+            expect(mockGetJobApplicationByJobId.execute).toHaveBeenCalled()
+        })
+
+        expect(screen.getByText('Already applied')).toBeInTheDocument()
     })
 });
