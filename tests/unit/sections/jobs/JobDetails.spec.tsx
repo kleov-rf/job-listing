@@ -59,6 +59,7 @@ describe('JobDetails', () => {
             expect(screen.getByText(mockJob.titleValue())).toBeInTheDocument();
             expect(screen.getByText(mockJob.companyNameValue())).toBeInTheDocument();
             expect(screen.getByText(mockJob.locationValue())).toBeInTheDocument();
+            expect(screen.getByText(mockJob.typeValue())).toBeInTheDocument();
             expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument();
         })
     })
