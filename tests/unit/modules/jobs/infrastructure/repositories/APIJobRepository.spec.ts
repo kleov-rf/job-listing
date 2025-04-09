@@ -142,5 +142,19 @@ describe('APIJobRepository', () => {
 
             expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJob);
         })
+        it('should return mapped job', async () => {
+            const mockSingleValueResponseValue = {data: [null as unknown as APIJobDTO]} as APIJobsResponseDTO;
+            global.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: vi.fn().mockResolvedValue(mockSingleValueResponseValue),
+            })
+            const mappedJob = JobMother.createDefault();
+            vi.spyOn(JobEntityMapper, 'toDomain').mockReturnValue(mappedJob)
+            const jobRepository = new APIJobRepository()
+
+            const job = await jobRepository.findById('1')
+
+            expect(job).toEqual([mappedJob])
+        })
     })
 })
