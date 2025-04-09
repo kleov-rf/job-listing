@@ -21,4 +21,9 @@ describe('JobDetails', () => {
 
         expect(screen.getByText(/Already applied/i)).toBeInTheDocument();
     })
+    it('should hide apply button if has applied', async () => {
+        render(<JobDetailsCard job={JobMother.createDefault()} onApply={vi.fn()} hasApplied={true}/>)
+
+        expect(screen.queryByText(/Apply Now/i)).not.toBeInTheDocument();
+    })
 })
