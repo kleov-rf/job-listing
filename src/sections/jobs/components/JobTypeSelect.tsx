@@ -16,7 +16,7 @@ export const JobTypeSelect = ({currentType, handleTypeChange}: JobTypeSelectProp
                 Filter by job type
             </label>
             <Select value={currentType} onValueChange={value => handleTypeChange(value as JobTypeOptions)}>
-                <SelectTrigger id="job-type-filter" className="w-44">
+                <SelectTrigger id="job-type-filter" className="w-full sm:w-44">
                     <SelectValue placeholder="Select job type"/>
                 </SelectTrigger>
                 <SelectContent>
