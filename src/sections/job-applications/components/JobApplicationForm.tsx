@@ -6,7 +6,7 @@ import {useJobContext} from "@/sections/shared/context/JobContext.tsx";
 import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {v4 as uuidv4} from "uuid";
 import {Primitives} from "@codelytv/primitives-type";
-import {FormEvent} from "react";
+import {FormEvent, useRef} from "react";
 
 interface JobApplicationFormProps {
     jobId: string,
@@ -17,14 +17,17 @@ interface JobApplicationFormProps {
 
 export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplicationFormProps) => {
     const {submitApplicationUseCase} = useJobContext()
+    const nameInput = useRef<HTMLInputElement>(null)
+    const emailInput = useRef<HTMLInputElement>(null)
+    const cvUrlInput = useRef<HTMLInputElement>(null)
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
         const jobApplication = {
             id: uuidv4().toString(),
-            name: 'John Doe',
-            email: 'john.doe@gmail.com',
-            cvUrl: 'https://example.com/cv.pdf',
+            name: nameInput?.current?.value ?? '',
+            email: emailInput?.current?.value ?? '',
+            cvUrl: cvUrlInput?.current?.value ?? '',
             jobId,
         } as Primitives<JobApplication>
         await submitApplicationUseCase.execute(jobApplication)
@@ -51,6 +54,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplic
                             <Label htmlFor="fullName">Full Name</Label>
                             <Input
                                 id="fullName"
+                                ref={nameInput}
                                 type="text"
                                 placeholder="John Doe"
                                 aria-required="true"
@@ -60,6 +64,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplic
                             <Label htmlFor="email">Email</Label>
                             <Input
                                 id="email"
+                                ref={emailInput}
                                 type="email"
                                 placeholder="john@example.com"
                                 aria-required="true"
@@ -69,6 +74,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose, onSubmit}: JobApplic
                             <Label htmlFor="cvUrl">CV URL</Label>
                             <Input
                                 id="cvUrl"
+                                ref={cvUrlInput}
                                 type="url"
                                 placeholder="https://example.com/cv.pdf"
                                 aria-required="true"
