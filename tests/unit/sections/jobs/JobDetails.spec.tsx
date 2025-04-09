@@ -25,9 +25,11 @@ describe('JobDetails', () => {
         } as unknown as JobContextType
 
         render(
-            <JobContext.Provider value={mockJobContext}>
-                <JobDetails/>
-            </JobContext.Provider>
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
         )
 
         await waitFor(() => {
@@ -48,9 +50,11 @@ describe('JobDetails', () => {
         } as unknown as JobContextType
 
         render(
-            <JobContext.Provider value={mockJobContext}>
-                <JobDetails/>
-            </JobContext.Provider>
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
         )
 
         await waitFor(() => {
