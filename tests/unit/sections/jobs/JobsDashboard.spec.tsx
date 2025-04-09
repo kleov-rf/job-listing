@@ -1,7 +1,9 @@
-import {render, waitFor, screen} from "@testing-library/react";
+import {render, waitFor, screen, act} from "@testing-library/react";
 import {describe, expect, it, vi} from "vitest";
 import {JobContextType, JobContext} from "@/sections/context/JobContext";
 import {JobsDashboard} from "@/sections/jobs/JobsDashboard";
+import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
+import {BrowserRouter as Router} from "react-router-dom";
 
 describe('JobsDashboard', () => {
     it('should call to get jobs', () => {
@@ -56,5 +58,36 @@ describe('JobsDashboard', () => {
 
         const emptyMessage = screen.getByText('No jobs found.')
         expect(emptyMessage).toBeInTheDocument()
+    })
+    it('should redirect to job details when apply now is clicked', async () => {
+        const mockRetrievedJob = JobMother.createDefault();
+        const mockGetJobsUseCase = {
+            execute: vi.fn().mockResolvedValue([
+                mockRetrievedJob
+            ])
+        }
+        const mockJobContext = {
+            getJobsUseCase: mockGetJobsUseCase,
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobsDashboard/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        await waitFor(() => {
+            expect(mockGetJobsUseCase.execute).toHaveBeenCalled()
+        })
+
+        const applyNowButton = screen.getByText('Apply Now')
+        act(() => {
+            applyNowButton.click()
+        })
+
+
+        expect(window.location.pathname).toBe(`/jobs/${mockRetrievedJob.idValue()}`)
     })
 })
