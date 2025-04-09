@@ -64,4 +64,21 @@ test.describe('Job Listings', () => {
       await expect(typeLocator).toHaveText('Full-Time');
     }
   })
+  test('should filter job listings by search query', async ({ page }) => {
+    await page.goto('/')
+
+    const searchInput = page.locator('input[type="text"]')
+    await searchInput.fill('Engineer')
+
+    await page.waitForLoadState('networkidle');
+
+    const jobCards = page.locator('[data-testid="job-card"]');
+    await expect(jobCards).not.toHaveCount(0);
+
+    const count = await jobCards.count();
+    for (let i = 0; i < count; i++) {
+      const titleLocator = jobCards.nth(i).locator('[data-testid="job-title"]');
+      await expect(titleLocator).toContainText('Engineer');
+    }
+  })
 })
