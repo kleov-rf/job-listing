@@ -133,4 +133,32 @@ test.describe('Job Listings', () => {
     const jobDetailsDescription = page.locator('[data-testid="job-details-description"]')
     await expect(jobDetailsDescription).toBeVisible()
   })
+  test('should apply to job when filling out form in details page', async ({ page }) => {
+    await page.goto('/')
+
+    const jobCards = page.locator('[data-testid="job-card"]')
+    const firstJobCard = jobCards.first()
+    const applyButton = firstJobCard.locator('button:has-text("Apply Now")')
+    await applyButton.click()
+
+    await page.waitForLoadState('networkidle');
+
+    const applyForPositionButton = firstJobCard.locator('button:has-text("Apply Now")')
+    await applyForPositionButton.click()
+
+    const nameInput = page.locator('input[type="text"]')
+    await nameInput.fill('John Doe')
+
+    const emailInput = page.locator('input[type="email"]')
+    await emailInput.fill('john.doe@gmail.com')
+
+    const resumeInput = page.locator('input[type="url"]')
+    await resumeInput.fill('https://example.com/resume.pdf')
+
+    const submitButton = page.locator('button:has-text("Submit application")')
+    await submitButton.click()
+
+    const successMessage = page.locator('[data-testid="applied-position-message"]')
+    await expect(successMessage).toBeVisible()
+  })
 })
