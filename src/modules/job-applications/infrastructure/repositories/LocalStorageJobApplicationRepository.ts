@@ -19,6 +19,10 @@ export class LocalStorageJobApplicationRepository implements JobApplicationRepos
         const jobApplications = this.getAllFromLocalStorage()
         const jobApplication = jobApplications.get(jobId.getValue());
 
+        if (!jobApplication) {
+            return Promise.resolve([]);
+        }
+
         return Promise.resolve([JobApplication.create(jobApplication)])
     }
 
