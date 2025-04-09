@@ -1,7 +1,8 @@
 import {describe, expect, it, vi} from "vitest";
 import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
-import {render, waitFor} from "@testing-library/react";
+import {render, screen, waitFor} from "@testing-library/react";
 import {JobDetails} from "@/sections/jobs/JobDetails";
+import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
 
 vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
@@ -32,5 +33,33 @@ describe('JobDetails', () => {
         })
 
         expect(mockGetJobByIdUseCase.execute).toHaveBeenCalledWith('job-id-param');
+    })
+    it('should display job details', async () => {
+        const mockJob = JobMother.createDefault()
+
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([mockJob])
+        }
+
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase
+        } as unknown as JobContextType
+
+        render(
+            <JobContext.Provider value={mockJobContext}>
+                <JobDetails/>
+            </JobContext.Provider>
+        )
+
+        await waitFor(() => {
+            expect(mockGetJobByIdUseCase.execute).toHaveBeenCalled();
+        })
+
+        await waitFor(() => {
+            expect(screen.getByText(mockJob.titleValue())).toBeInTheDocument();
+            expect(screen.getByText(mockJob.companyNameValue())).toBeInTheDocument();
+            expect(screen.getByText(mockJob.locationValue())).toBeInTheDocument();
+            expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument();
+        })
     })
 });
