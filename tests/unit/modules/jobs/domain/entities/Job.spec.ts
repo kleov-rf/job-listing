@@ -73,5 +73,12 @@ describe('Job', () => {
 
             expect(job.matchesSearch(jobTitle)).toBe(true)
         })
+        it('should match job by partial title', () => {
+            const job = JobMother.createWithCustomValues({
+                title: 'Software Engineer'
+            })
+
+            expect(job.matchesSearch('Software')).toBe(true)
+        })
     })
 })
