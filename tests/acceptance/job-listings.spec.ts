@@ -108,4 +108,23 @@ test.describe('Job Listings', () => {
       await expect(titleLocator).toContainText('Engineer', {ignoreCase: true});
     }
   })
+  test('should show job details when clicking "Apply Now"', async ({ page }) => {
+    await page.goto('/')
+
+    const jobCards = page.locator('[data-testid="job-card"]')
+    const firstJobCard = jobCards.first()
+    const applyButton = firstJobCard.locator('button:has-text("Apply Now")')
+    await applyButton.click()
+
+    await page.waitForLoadState('networkidle');
+
+    const jobDetailsTitle = page.locator('[data-testid="job-details-title"]')
+    await expect(jobDetailsTitle).toBeVisible()
+
+    const jobDetailsCompany = page.locator('[data-testid="job-details-company"]')
+    await expect(jobDetailsCompany).toBeVisible()
+
+    const jobDetailsLocation = page.locator('[data-testid="job-details-location"]')
+    await expect(jobDetailsLocation).toBeVisible()
+  })
 })
