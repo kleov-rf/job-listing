@@ -58,4 +58,8 @@ export class Job {
     matchesType(jobType: JobType) {
         return this.type.equals(jobType)
     }
+
+    matchesSearch(jobTitle: string) {
+        throw new Error("Method not implemented.")
+    }
 }

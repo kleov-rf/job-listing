@@ -64,4 +64,14 @@ describe('Job', () => {
 
         expect(job.matchesType(jobType)).toBe(false)
     })
+    describe('match search', () => {
+        it('should match job by complete title', () => {
+            const jobTitle = 'Software Engineer';
+            const job = JobMother.createWithCustomValues({
+                title: jobTitle
+            })
+
+            expect(job.matchesSearch(jobTitle)).toBe(true)
+        })
+    })
 })
