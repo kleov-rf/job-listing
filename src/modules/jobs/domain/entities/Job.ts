@@ -60,6 +60,6 @@ export class Job {
     }
 
     matchesSearch(jobTitle: string) {
-        return this.title.getValue().toLowerCase().includes(jobTitle)
+        return this.title.getValue().toLowerCase().includes(jobTitle.toLowerCase())
     }
 }
