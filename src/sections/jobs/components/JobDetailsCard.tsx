@@ -18,6 +18,7 @@ export const JobDetailsCard = ({job, onApply}: JobDetailsCardProps) => {
                     <span data-testid="job-details-location">{job.locationValue()}</span>
                 </p>
                 <Button
+                    type="button"
                     variant="outline"
                     className="mt-4 sm:w-fit"
                     onClick={onApply}
