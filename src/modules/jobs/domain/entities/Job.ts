@@ -61,7 +61,7 @@ export class Job {
 
     matchesSearch(jobTitle: string) {
         const lowerCaseJobTitle = jobTitle.toLowerCase();
-        if(this.companyNameValue().toLowerCase().includes(jobTitle)) {
+        if(this.companyNameValue().toLowerCase().includes(lowerCaseJobTitle)) {
             return true;
         }
         return this.titleValue().toLowerCase().includes(lowerCaseJobTitle)
