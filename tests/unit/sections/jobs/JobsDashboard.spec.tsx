@@ -15,9 +15,11 @@ describe('JobsDashboard', () => {
         } as unknown as JobContextType
 
         render(
-            <JobContext.Provider value={mockJobContext}>
-                <JobsDashboard/>
-            </JobContext.Provider>
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobsDashboard/>
+                </JobContext.Provider>
+            </Router>
         )
 
         expect(mockGetJobsUseCase.execute).toHaveBeenCalled()
@@ -31,9 +33,11 @@ describe('JobsDashboard', () => {
         } as unknown as JobContextType
 
         render(
-            <JobContext.Provider value={mockJobContext}>
-                <JobsDashboard/>
-            </JobContext.Provider>
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobsDashboard/>
+                </JobContext.Provider>
+            </Router>
         )
 
         expect(mockGetJobsUseCase.execute).toHaveBeenCalledTimes(1)
@@ -51,9 +55,11 @@ describe('JobsDashboard', () => {
         } as unknown as JobContextType
 
         render(
-            <JobContext.Provider value={mockJobContext}>
-                <JobsDashboard/>
-            </JobContext.Provider>
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobsDashboard/>
+                </JobContext.Provider>
+            </Router>
         )
 
         const emptyMessage = screen.getByText('No jobs found.')
