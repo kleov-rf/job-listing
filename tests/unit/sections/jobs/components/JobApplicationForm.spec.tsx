@@ -1,0 +1,55 @@
+import {describe, expect, it, vi} from "vitest";
+import {JobApplicationForm} from "@/sections/jobs/components/JobApplicationForm.tsx";
+import {render, screen, waitFor} from "@testing-library/react";
+import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
+import {userEvent} from "@testing-library/user-event";
+import {JobApplicationMother} from "../../../modules/jobs/domain/entities/JobApplicationMother.ts";
+
+vi.mock("uuid", () => {
+    const actual = vi.importActual("uuid");
+    return {
+        ...actual,
+        v4: () => '1234-5678-9101-1121'
+    }
+})
+
+describe('JobApplicationForm', () => {
+    it('should call to submit application', async () => {
+        const mockJobApplication = JobApplicationMother.createWithCustomValues({
+            id: '1234-5678-9101-1121'
+        });
+        const mockSubmitApplicationUseCase = {
+            execute: vi.fn()
+        }
+
+        const mockJobContext = {
+            submitApplicationUseCase: mockSubmitApplicationUseCase
+        } as unknown as JobContextType
+
+        const mockJobId = '1'
+
+        render(
+            <JobContext.Provider value={mockJobContext}>
+                <JobApplicationForm isOpen={true} onClose={vi.fn()} jobId={mockJobId}/>
+            </JobContext.Provider>
+        )
+
+        const nameInput = screen.getByLabelText('Full Name');
+        await userEvent.type(nameInput, mockJobApplication.nameValue());
+
+        const emailInput = screen.getByLabelText('Email');
+        await userEvent.type(emailInput, mockJobApplication.emailValue());
+
+        const resumeInput = screen.getByLabelText('CV URL');
+        await userEvent.type(resumeInput, mockJobApplication.cvUrlValue());
+
+        const submitButton = screen.getByRole('button', {name: 'Submit application'});
+        submitButton.click()
+
+        await waitFor(() => {
+            expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalled();
+        })
+
+        expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalledWith(mockJobApplication, mockJobId);
+    })
+})
