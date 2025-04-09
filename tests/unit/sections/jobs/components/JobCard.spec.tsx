@@ -21,4 +21,14 @@ describe('JobCard', () => {
         expect(screen.getByTestId('job-description')).toBeInTheDocument()
         expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument()
     })
+    it('should show "-" when location is not provided', () => {
+        const mockJob = JobMother.createWithCustomValues({
+            location: undefined,
+        })
+
+        render(<JobCard job={mockJob}/>)
+
+        expect(screen.getByTestId('job-location')).toBeInTheDocument()
+        expect(screen.getByText('-')).toBeInTheDocument()
+    })
 })
