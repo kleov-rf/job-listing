@@ -1,8 +1,9 @@
 import {FC} from "react";
 import {motion} from 'framer-motion'
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
-import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
+import {Card, CardContent, CardFooter, CardHeader} from "@/sections/shared/components/Card.tsx";
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
+import {Button} from "@/sections/shared/components/Button.tsx";
 
 interface JobCardProps {
     job: Job,
@@ -46,6 +47,14 @@ export const JobCard: FC<JobCardProps> = ({job, onApply}) => {
                         </dd>
                     </dl>
                 </CardContent>
+                <CardFooter>
+                    <Button
+                        onClick={() => onApply(job.idValue())}
+                        aria-label={`Apply for ${job.titleValue()} at ${job.companyNameValue()}`}
+                    >
+                        Apply Now
+                    </Button>
+                </CardFooter>
             </Card>
         </motion.li>
     )
