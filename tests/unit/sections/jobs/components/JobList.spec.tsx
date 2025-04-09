@@ -6,6 +6,17 @@ import {userEvent} from "@testing-library/user-event";
 import {JobMother} from "../../../modules/jobs/domain/entities/JobMother.ts";
 
 describe('JobList', () => {
+    const selectJobTypeOption = async (optionText: string) => {
+        const allTypesSelect = screen.getByRole('combobox');
+        await userEvent.click(allTypesSelect);
+
+        const option = screen.getByText(optionText, {selector: 'span'});
+        await userEvent.click(option);
+    }
+    const typeSearchQuery = async (query: string) => {
+        const searchInput = screen.getByRole('textbox', {name: /search/i});
+        await userEvent.type(searchInput, query);
+    };
     it('should show jobs', async () => {
         const mockRetrievedJobs = [
             JobMother.createFullTimeJob(),
@@ -18,13 +29,6 @@ describe('JobList', () => {
         expect(jobCards).toHaveLength(mockRetrievedJobs.length);
     })
     describe('should filter jobs when selecting type', async () => {
-        const selectJobTypeOption = async (optionText: string) => {
-            const allTypesSelect = screen.getByRole('combobox');
-            await userEvent.click(allTypesSelect);
-
-            const option = screen.getByText(optionText, {selector: 'span'});
-            await userEvent.click(option);
-        }
         it('should show only full-time jobs', async () => {
             const fullTimeRole = 'Software Engineer';
             const fullTimeJobs = [
@@ -136,12 +140,43 @@ describe('JobList', () => {
 
             render(<JobList jobs={mockRetrievedJobs}/>)
 
-            const searchInput = screen.getByRole('textbox', {name: /search/i});
-            await userEvent.type(searchInput, 'Software Engineer');
+            await typeSearchQuery('Software Engineer');
 
             const jobCards = await screen.findAllByTestId('job-card');
             expect(jobCards).toHaveLength(1);
             expect(await screen.findByText('Software Engineer')).toBeInTheDocument();
         })
+    })
+    it('should filter jobs when searching and selecting type', async () => {
+        const partTimeTitle = 'Data Scientist';
+        const mockFullTimeJobs = [
+            JobMother.createWithCustomValues({
+                title: 'Software Engineer',
+                type: JobTypeEnum.FULL_TIME,
+            }),
+            JobMother.createWithCustomValues({
+                title: 'Contract Developer',
+                type: JobTypeEnum.FULL_TIME,
+            })
+        ];
+        const mockRetrievedJobs = [
+            ...mockFullTimeJobs,
+            JobMother.createWithCustomValues({
+                title: partTimeTitle,
+                type: JobTypeEnum.PART_TIME,
+            }),
+        ];
+
+        render(<JobList jobs={mockRetrievedJobs}/>)
+
+        await selectJobTypeOption('Full-Time');
+
+        expect(await screen.findAllByTestId('job-card')).toHaveLength(mockFullTimeJobs.length);
+        expect(screen.queryByText(partTimeTitle)).not.toBeInTheDocument();
+
+        await typeSearchQuery('Software Engineer');
+
+        expect(await screen.findAllByTestId('job-card')).toHaveLength(1);
+        expect(await screen.findByText('Software Engineer')).toBeInTheDocument();
     })
 })
