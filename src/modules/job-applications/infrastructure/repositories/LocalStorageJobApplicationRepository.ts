@@ -4,7 +4,7 @@ import {Primitives} from "@codelytv/primitives-type";
 import { JobId } from "@/modules/jobs/domain/value-objects";
 
 export class LocalStorageJobApplicationRepository implements JobApplicationRepository {
-    save(jobApplication: JobApplication): Promise<void> {
+    async save(jobApplication: JobApplication): Promise<void> {
         const jobApplications = this.getAllFromLocalStorage();
         const jobApplicationPrimitives = jobApplication.toPrimitives();
 
@@ -12,18 +12,18 @@ export class LocalStorageJobApplicationRepository implements JobApplicationRepos
 
         localStorage.setItem("job_applications", JSON.stringify(Array.from(jobApplications.entries())));
 
-        return Promise.resolve();
+        return;
     }
 
-    getByJobId(jobId: JobId): Promise<JobApplication[]> {
+    async getByJobId(jobId: JobId): Promise<JobApplication[]> {
         const jobApplications = this.getAllFromLocalStorage()
         const jobApplication = jobApplications.get(jobId.getValue());
 
         if (!jobApplication) {
-            return Promise.resolve([]);
+            return [];
         }
 
-        return Promise.resolve([JobApplication.create(jobApplication)])
+        return [JobApplication.create(jobApplication)]
     }
 
     private getAllFromLocalStorage(): Map<string, Primitives<JobApplication>> {
