@@ -8,6 +8,7 @@ import {Button} from "@/sections/shared/components/Button.tsx";
 
 export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
+    const [isLoading, setIsLoading] = useState(true);
     const [job, setJob] = useState<Job>();
     const {getJobByIdUseCase} = useJobContext();
     const navigate = useNavigate();
@@ -18,14 +19,11 @@ export const JobDetails: () => JSX.Element = () => {
             if (retrievedJobs.length) {
                 setJob(retrievedJobs[0]);
             }
+            setIsLoading(false);
         };
 
         fetchJobs();
     }, [getJobByIdUseCase, id])
-
-    if (!job) {
-        return <></>
-    }
 
     return (
         <article>
@@ -38,28 +36,35 @@ export const JobDetails: () => JSX.Element = () => {
                     ← <span>Back to Listings</span>
                 </Button>
             </nav>
-            <Card className="mb-6">
-                <CardHeader>
-                    <h1 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h1>
-                    <p className="text-muted-foreground">
-                        <span data-testid="job-details-company">{job.companyNameValue()}</span> •
-                        <span data-testid="job-details-location">{job.locationValue()}</span>
-                    </p>
-                </CardHeader>
-                <CardContent>
-                    <div className="mb-4">
+            {isLoading && (
+                <section role="status" className="space-y-6 animate-pulse">
+                    <Card className="w-full h-96 bg-zinc-200"></Card>
+                </section>
+            )}
+            {!isLoading && (
+                <Card className="mb-6">
+                    <CardHeader>
+                        <h1 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h1>
+                        <p className="text-muted-foreground">
+                            <span data-testid="job-details-company">{job.companyNameValue()}</span> •
+                            <span data-testid="job-details-location">{job.locationValue()}</span>
+                        </p>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="mb-4">
                         <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
                               role="status" data-testid="job-details-type">
                             {renderJobTypeLabel(job.typeValue())}
                         </span>
-                    </div>
-                    <section className="prose max-w-none">
-                        <h2 className="text-lg font-medium mb-2">Job Description</h2>
-                        <p className="whitespace-pre-line"
-                           data-testid="job-details-description">{job.descriptionValue()}</p>
-                    </section>
-                </CardContent>
-            </Card>
+                        </div>
+                        <section className="prose max-w-none">
+                            <h2 className="text-lg font-medium mb-2">Job Description</h2>
+                            <p className="whitespace-pre-line"
+                               data-testid="job-details-description">{job.descriptionValue()}</p>
+                        </section>
+                    </CardContent>
+                </Card>
+            )}
         </article>
     )
 }
