@@ -1,6 +1,8 @@
 import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
 import {JobRepository} from "@/modules/jobs/domain/repositories/JobRepository.ts";
 import {JobApplicationRepository} from "@/modules/job-applications/domain/repositories/JobApplicationRepository.ts";
+import {JobId} from "@/modules/jobs/domain/value-objects";
+import {SaveJobApplicationDTO} from "@/modules/job-applications/application/dtos.ts";
 
 export class SubmitApplicationUseCase {
     constructor(
@@ -11,7 +13,11 @@ export class SubmitApplicationUseCase {
     async execute(
         jobApplication: JobApplication,
         jobId: string
-    ): Promise<JobApplication> {
-        throw new Error('Method not implemented.')
+    ): Promise<void> {
+        const saveJobApplicationDTO = {
+            jobId: new JobId(jobId),
+            jobApplication
+        } as SaveJobApplicationDTO
+        await this.jobApplicationRepository.save(saveJobApplicationDTO)
     }
 }

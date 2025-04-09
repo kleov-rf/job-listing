@@ -1,5 +1,5 @@
-import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
+import {SaveJobApplicationDTO} from "@/modules/job-applications/application/dtos.ts";
 
 export interface JobApplicationRepository {
-    save(jobApplication: JobApplication): Promise<void>
+    save(jobApplication: SaveJobApplicationDTO): Promise<void>
 }
