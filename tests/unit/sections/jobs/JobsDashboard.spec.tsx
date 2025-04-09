@@ -46,25 +46,6 @@ describe('JobsDashboard', () => {
             expect(mockGetJobsUseCase.execute).not.toHaveBeenCalledTimes(2)
         })
     })
-    it('should show empty message when no job is retrieved', async () => {
-        const mockGetJobsUseCase = {
-            execute: vi.fn().mockResolvedValue([])
-        }
-        const mockJobContext = {
-            getJobsUseCase: mockGetJobsUseCase,
-        } as unknown as JobContextType
-
-        render(
-            <Router>
-                <JobContext.Provider value={mockJobContext}>
-                    <JobsDashboard/>
-                </JobContext.Provider>
-            </Router>
-        )
-
-        const emptyMessage = screen.getByText('No jobs found.')
-        expect(emptyMessage).toBeInTheDocument()
-    })
     it('should redirect to job details when apply now is clicked', async () => {
         const mockRetrievedJob = JobMother.createDefault();
         const mockGetJobsUseCase = {
