@@ -18,6 +18,9 @@ describe('JobApplicationForm', () => {
         const mockJobId = '1'
         const mockJobApplication = JobApplicationMother.createWithCustomValues({
             id: '1234-5678-9101-1121',
+            name: 'Kevin Ruiz',
+            email: 'hello@hello.com',
+            cvUrl: 'https://www.google.com',
             jobId: mockJobId
         });
         const mockSubmitApplicationUseCase = {
