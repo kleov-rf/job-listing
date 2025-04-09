@@ -45,7 +45,7 @@ export const JobsDashboard: () => JSX.Element = () => {
                 )
                 : (
                     <section className="flex justify-center py-8">
-                        <p className="text-gray-500">No jobs found.</p>
+                        <p className="text-gray-500">Sorry! We didn't find any jobs for you.</p>
                     </section>
                 )}
         </>
