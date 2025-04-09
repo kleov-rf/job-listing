@@ -68,7 +68,7 @@ export const JobDetails: () => JSX.Element = () => {
             <>
                 {renderBackButton()}
                 <section role="status" className="space-y-6 animate-pulse">
-                    <Card className="w-full h-96 bg-zinc-200"></Card>
+                    <Card className="w-full h-96 bg-zinc-200 dark:bg-zinc-800"></Card>
                 </section>
             </>
         )

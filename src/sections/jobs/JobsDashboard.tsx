@@ -28,11 +28,11 @@ export const JobsDashboard: () => JSX.Element = () => {
         return (
             <section className="space-y-6" role="status">
                 <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-start animate-pulse">
-                    <article className="h-9 w-full bg-zinc-200 sm:w-44"></article>
-                    <article className="h-9 w-full bg-zinc-200 sm:w-44"></article>
+                    <article className="h-9 w-full bg-zinc-200 sm:w-44 rounded-md dark:bg-zinc-800"></article>
+                    <article className="h-9 w-full bg-zinc-200 sm:w-44 rounded-md dark:bg-zinc-800"></article>
                 </section>
                 <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 w-full animate-pulse">
-                    {Array.from({length: 9}).map((_, index) => <Card key={index} className="w-full h-80 bg-zinc-200"></Card>)}
+                    {Array.from({length: 9}).map((_, index) => <Card key={index} className="w-full h-80 bg-zinc-200 dark:bg-zinc-800"></Card>)}
                 </section>
             </section>
         );
