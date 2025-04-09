@@ -123,4 +123,25 @@ describe('JobList', () => {
             expect(allJobCards).toHaveLength(mockRetrievedJobs.length);
         })
     })
+    describe('should filter jobs when searching', async () => {
+        it('should show only jobs that match the search term', async () => {
+            const mockRetrievedJobs = [
+                JobMother.createWithCustomValues({
+                    title: 'Software Engineer'
+                }),
+                JobMother.createWithCustomValues({
+                    title: 'Data Scientist'
+                }),
+            ];
+
+            render(<JobList jobs={mockRetrievedJobs}/>)
+
+            const searchInput = screen.getByRole('textbox', {name: /search/i});
+            await userEvent.type(searchInput, 'Software Engineer');
+
+            const jobCards = await screen.findAllByTestId('job-card');
+            expect(jobCards).toHaveLength(1);
+            expect(await screen.findByText('Software Engineer')).toBeInTheDocument();
+        })
+    })
 })
