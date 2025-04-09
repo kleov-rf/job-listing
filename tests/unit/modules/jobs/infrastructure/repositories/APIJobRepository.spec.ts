@@ -156,5 +156,15 @@ describe('APIJobRepository', () => {
 
             expect(job).toEqual([mappedJob])
         })
+        it('should return empty array when request is not successful', async () => {
+            global.fetch = vi.fn().mockResolvedValue({
+                ok: false,
+            })
+            const jobRepository = new APIJobRepository()
+
+            const job = await jobRepository.findById('1')
+
+            expect(job).toEqual([])
+        })
     })
 })
