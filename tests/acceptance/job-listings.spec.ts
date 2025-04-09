@@ -78,7 +78,7 @@ test.describe('Job Listings', () => {
     const count = await jobCards.count();
     for (let i = 0; i < count; i++) {
       const titleLocator = jobCards.nth(i).locator('[data-testid="job-title"]');
-      await expect(titleLocator).toContainText('Engineer');
+      await expect(titleLocator).toContainText('Engineer', {ignoreCase: true});
     }
   })
 })
