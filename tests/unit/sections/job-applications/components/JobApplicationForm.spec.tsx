@@ -30,7 +30,7 @@ describe('JobApplicationForm', () => {
 
         render(
             <JobContext.Provider value={mockJobContext}>
-                <JobApplicationForm isOpen={true} onClose={vi.fn()} jobId={mockJobId}/>
+                <JobApplicationForm isOpen={true} onClose={vi.fn()} jobId={mockJobId} onSubmit={vi.fn()}/>
             </JobContext.Provider>
         )
 
@@ -52,7 +52,7 @@ describe('JobApplicationForm', () => {
 
         expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalledWith(mockJobApplication.toPrimitives());
     })
-    it('should close the modal when the form is submitted', async () => {
+    it('should call when the job application is submitted', async () => {
         const mockJobId = '1'
         const mockJobApplication = JobApplicationMother.createWithCustomValues({
             id: '1234-5678-9101-1121',
@@ -66,11 +66,11 @@ describe('JobApplicationForm', () => {
             submitApplicationUseCase: mockSubmitApplicationUseCase
         } as unknown as JobContextType
 
-        const onCloseMock = vi.fn()
+        const mockOnSubmit = vi.fn()
 
         render(
             <JobContext.Provider value={mockJobContext}>
-                <JobApplicationForm isOpen={true} onClose={onCloseMock} jobId={mockJobId}/>
+                <JobApplicationForm isOpen={true} onClose={vi.fn()} jobId={mockJobId} onSubmit={mockOnSubmit}/>
             </JobContext.Provider>
         )
 
@@ -87,7 +87,9 @@ describe('JobApplicationForm', () => {
         submitButton.click()
 
         await waitFor(() => {
-            expect(onCloseMock).toHaveBeenCalled();
+            expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalled();
         })
+
+        expect(mockOnSubmit).toHaveBeenCalled()
     })
 })
