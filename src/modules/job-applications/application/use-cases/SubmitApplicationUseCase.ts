@@ -21,6 +21,9 @@ export class SubmitApplicationUseCase {
         }: Primitives<JobApplication>,
     ): Promise<void> {
         const job = await this.jobRepository.findById(new JobId(jobId))
+
+        if (!job.length) return
+
         const jobApplication = JobApplication.create({
             id,
             name,
