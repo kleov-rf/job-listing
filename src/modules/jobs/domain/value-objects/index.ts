@@ -4,3 +4,8 @@ export { JobId } from './JobId'
 export { JobTitle } from './JobTitle'
 export { JobType, JobTypeEnum } from './JobType'
 export { JobLocation } from './JobLocation.ts'
+
+export { JobApplicationId } from './JobApplicationId'
+export { Name } from './Name'
+export { Email } from './Email'
+export { CVUrl } from './CVUrl'
