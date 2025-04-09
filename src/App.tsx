@@ -1,6 +1,7 @@
 import {JobsDashboard} from "@/sections/jobs/JobsDashboard"
 import {JobProvider} from "@/sections/context/JobContext.tsx";
-import {BrowserRouter as Router} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {JobDetails} from "@/sections/jobs/JobDetails.tsx";
 
 function App() {
     return (
@@ -11,7 +12,10 @@ function App() {
                         <h1 className="text-3xl font-bold">Job Listings</h1>
                     </header>
                     <main>
-                        <JobsDashboard/>
+                        <Routes>
+                            <Route path="/" element={<JobsDashboard />} />
+                            <Route path="/jobs/:id" element={<JobDetails />} />
+                        </Routes>
                     </main>
                 </div>
             </JobProvider>
