@@ -1,4 +1,4 @@
-import {describe, expect, it} from "vitest";
+import {describe, expect, it, vi} from "vitest";
 import {JobTypeEnum} from "@/modules/jobs/domain/value-objects";
 import {render, screen} from "@testing-library/react";
 import {JobList} from "@/sections/jobs/components/JobList.tsx";
@@ -23,7 +23,7 @@ describe('JobList', () => {
             JobMother.createPartTimeJob(),
         ];
 
-        render(<JobList jobs={mockRetrievedJobs}/>)
+        render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
         const jobCards = await screen.findAllByTestId('job-card');
         expect(jobCards).toHaveLength(mockRetrievedJobs.length);
@@ -46,7 +46,7 @@ describe('JobList', () => {
                 }),
             ];
 
-            render(<JobList jobs={mockRetrievedJobs}/>)
+            render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
             await selectJobTypeOption('Full-Time');
 
@@ -72,7 +72,7 @@ describe('JobList', () => {
                 }),
             ];
 
-            render(<JobList jobs={mockRetrievedJobs}/>)
+            render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
             await selectJobTypeOption('Part-Time');
 
@@ -98,7 +98,7 @@ describe('JobList', () => {
                 }),
             ];
 
-            render(<JobList jobs={mockRetrievedJobs}/>)
+            render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
             await selectJobTypeOption('Contract');
 
@@ -114,7 +114,7 @@ describe('JobList', () => {
                 JobMother.createContractJob(),
             ];
 
-            render(<JobList jobs={mockRetrievedJobs}/>)
+            render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
             await selectJobTypeOption('Contract');
 
@@ -138,7 +138,7 @@ describe('JobList', () => {
                 }),
             ];
 
-            render(<JobList jobs={mockRetrievedJobs}/>)
+            render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
             await typeSearchQuery('Software Engineer');
 
@@ -156,7 +156,7 @@ describe('JobList', () => {
                 }),
             ];
 
-            render(<JobList jobs={mockRetrievedJobs}/>)
+            render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
             await typeSearchQuery('  Software Engineer  ');
 
@@ -185,7 +185,7 @@ describe('JobList', () => {
             }),
         ];
 
-        render(<JobList jobs={mockRetrievedJobs}/>)
+        render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
         await selectJobTypeOption('Full-Time');
 
@@ -209,7 +209,7 @@ describe('JobList', () => {
             }),
         ];
 
-        render(<JobList jobs={mockRetrievedJobs}/>)
+        render(<JobList jobs={mockRetrievedJobs} onApply={vi.fn()}/>)
 
         await selectJobTypeOption('Contract');
 
