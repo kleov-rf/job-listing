@@ -5,11 +5,13 @@ import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card, CardContent, CardHeader} from "@/sections/shared/components/Card.tsx";
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 import {Button} from "@/sections/shared/components/Button.tsx";
+import {Dialog, DialogContent, DialogHeader, DialogTitle} from "../shared/components/Dialog";
 
 export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
     const [isLoading, setIsLoading] = useState(true);
     const [job, setJob] = useState<Job>();
+    const [isApplicationFormShown, setIsApplicationFormShown] = useState(false);
     const {getJobByIdUseCase} = useJobContext();
     const navigate = useNavigate();
 
@@ -68,11 +70,19 @@ export const JobDetails: () => JSX.Element = () => {
             {renderBackButton()}
             <Card className="mb-6">
                 <CardHeader>
-                    <h1 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h1>
+                    <h2 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h2>
                     <p className="text-muted-foreground">
                         <span data-testid="job-details-company">{job.companyNameValue()}</span> •
                         <span data-testid="job-details-location">{job.locationValue()}</span>
                     </p>
+                    <Button
+                        variant="outline"
+                        className="mt-4 sm:w-fit"
+                        onClick={() => setIsApplicationFormShown(true)}
+                        aria-label={`Apply for ${job.titleValue()} at ${job.companyNameValue()}`}
+                    >
+                        Apply Now
+                    </Button>
                 </CardHeader>
                 <CardContent>
                     <div className="mb-4">
@@ -82,12 +92,22 @@ export const JobDetails: () => JSX.Element = () => {
                         </span>
                     </div>
                     <section className="prose max-w-none">
-                        <h2 className="text-lg font-medium mb-2">Job Description</h2>
+                        <h3 className="text-lg font-medium mb-2">Job Description</h3>
                         <p className="whitespace-pre-line"
                            data-testid="job-details-description">{job.descriptionValue()}</p>
                     </section>
                 </CardContent>
             </Card>
+            <Dialog open={isApplicationFormShown} onOpenChange={setIsApplicationFormShown}
+                    aria-labelledby="application-form-title">
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-bold" id="application-form-title">
+                            Apply for this position
+                        </DialogTitle>
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
         </article>
     )
 }
