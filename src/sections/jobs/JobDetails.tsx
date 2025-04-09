@@ -44,6 +44,11 @@ export const JobDetails: () => JSX.Element = () => {
         setIsApplicationFormShown(false);
     }
 
+    const handleApplicationSubmitted = () => {
+        setIsApplicationFormShown(false);
+        setHasApplied(true);
+    }
+
     const renderBackButton = () => {
         return (
             <nav aria-label="Breadcrumb">
@@ -76,7 +81,7 @@ export const JobDetails: () => JSX.Element = () => {
                 <>
                     <JobDetailsCard job={job} hasApplied={hasApplied} onApply={handleOpenApplicationForm}/>
                     <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm}
-                                        jobId={job.idValue()}/>
+                                        jobId={job.idValue()} onSubmit={handleApplicationSubmitted}/>
                 </>
             ) : (
                 <section className="text-center py-12">
