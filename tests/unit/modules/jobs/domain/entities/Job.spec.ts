@@ -136,6 +136,13 @@ describe('Job', () => {
 
                 expect(job.matchesSearch(jobLocation)).toBe(true)
             })
+            it('should match job by partial location', () => {
+                const job = JobMother.createWithCustomValues({
+                    location: 'Austin, TX'
+                })
+
+                expect(job.matchesSearch('Austin')).toBe(true)
+            })
         })
     })
 })
