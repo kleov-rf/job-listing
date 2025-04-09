@@ -1,7 +1,7 @@
 import {describe, expect, it, vi} from "vitest";
 import {JobApplicationForm} from "@/sections/job-applications/components/JobApplicationForm.tsx";
 import {render, screen, waitFor} from "@testing-library/react";
-import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
+import {JobContext, JobContextType} from "@/sections/shared/context/JobContext.tsx";
 import {userEvent} from "@testing-library/user-event";
 import {JobApplicationMother} from "../../../modules/job-applications/domain/entities/JobApplicationMother.ts";
 

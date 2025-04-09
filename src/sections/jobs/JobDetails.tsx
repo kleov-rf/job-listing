@@ -1,6 +1,6 @@
 import {JSX, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useJobContext} from "@/sections/context/JobContext.tsx";
+import {useJobContext} from "@/sections/shared/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {Card} from "@/sections/shared/components/Card.tsx";
 import {Button} from "@/sections/shared/components/Button.tsx";

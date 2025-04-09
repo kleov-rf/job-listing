@@ -1,5 +1,5 @@
 import {JSX, useEffect, useState} from "react";
-import {useJobContext} from "@/sections/context/JobContext.tsx";
+import {useJobContext} from "@/sections/shared/context/JobContext.tsx";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {JobList} from "@/sections/jobs/components/JobList.tsx";
 import {useNavigate} from "react-router-dom";

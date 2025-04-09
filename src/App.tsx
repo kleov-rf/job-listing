@@ -1,5 +1,5 @@
 import {JobsDashboard} from "@/sections/jobs/JobsDashboard"
-import {JobProvider} from "@/sections/context/JobContext.tsx";
+import {JobProvider} from "@/sections/shared/context/JobContext.tsx";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import {JobDetails} from "@/sections/jobs/JobDetails.tsx";
 

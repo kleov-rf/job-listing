@@ -1,6 +1,6 @@
 import {render, waitFor, screen, act} from "@testing-library/react";
 import {describe, expect, it, vi} from "vitest";
-import {JobContextType, JobContext} from "@/sections/context/JobContext";
+import {JobContextType, JobContext} from "@/sections/shared/context/JobContext";
 import {JobsDashboard} from "@/sections/jobs/JobsDashboard";
 import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
 import {BrowserRouter as Router} from "react-router-dom";

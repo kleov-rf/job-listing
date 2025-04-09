@@ -1,5 +1,5 @@
 import {describe, expect, it, vi} from "vitest";
-import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
+import {JobContext, JobContextType} from "@/sections/shared/context/JobContext.tsx";
 import {act, render, screen, waitFor} from "@testing-library/react";
 import {JobDetails} from "@/sections/jobs/JobDetails";
 import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
