@@ -5,6 +5,7 @@ import {Label} from "@/sections/shared/components/Label.tsx";
 import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {JobApplication} from "@/modules/jobs/domain/entities/JobApplication.ts";
 import {v4 as uuidv4} from "uuid";
+import {Primitives} from "@codelytv/primitives-type";
 
 interface JobApplicationFormProps {
     jobId: string;
@@ -16,13 +17,14 @@ export const JobApplicationForm = ({jobId, isOpen, onClose}: JobApplicationFormP
     const { submitApplicationUseCase } = useJobContext()
 
     const handleSubmit = async () => {
-        const jobApplication = JobApplication.create({
+        const jobApplication = {
             id: uuidv4().toString(),
             name: 'John Doe',
             email: 'john.doe@gmail.com',
             cvUrl: 'https://example.com/cv.pdf',
-        })
-        await submitApplicationUseCase.execute(jobApplication, jobId)
+            jobId,
+        } as Primitives<JobApplication>
+        await submitApplicationUseCase.execute(jobApplication)
     }
 
     return (

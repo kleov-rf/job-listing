@@ -12,6 +12,7 @@ export class JobApplicationMother {
             name: 'John Doe',
             email: 'john.doe@gmail.com',
             cvUrl: 'https://example.com/cv.pdf',
+            jobId: '123456',
         })
     }
 
@@ -21,6 +22,7 @@ export class JobApplicationMother {
             name: string,
             email: string,
             cvUrl: string,
+            jobId: string,
         }> = {}
     ): JobApplication {
         const defaults = {
@@ -28,6 +30,7 @@ export class JobApplicationMother {
             name: 'John Doe',
             email: 'john.doe@gmail.com',
             cvUrl: 'https://example.com/cv.pdf',
+            jobId: '123456',
         }
 
         return JobApplication.create({

@@ -1,5 +1,5 @@
 import {Primitives} from "@codelytv/primitives-type";
-import {CVUrl, Email, JobApplicationId, Name} from "@/modules/jobs/domain/value-objects";
+import {CVUrl, Email, JobApplicationId, JobId, Name} from "@/modules/jobs/domain/value-objects";
 
 export class JobApplication {
     private constructor(
@@ -7,6 +7,7 @@ export class JobApplication {
         readonly name: Name,
         readonly email: Email,
         readonly cvUrl: CVUrl,
+        readonly jobId: JobId
     ) {
     }
 
@@ -16,12 +17,14 @@ export class JobApplication {
             name,
             email,
             cvUrl,
+            jobId,
         }: Primitives<JobApplication>): JobApplication {
         return new JobApplication(
             new JobApplicationId(id),
             new Name(name),
             new Email(email),
             new CVUrl(cvUrl),
+            new JobId(jobId)
         )
     }
 
