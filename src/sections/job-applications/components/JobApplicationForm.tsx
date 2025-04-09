@@ -47,6 +47,7 @@ export const JobApplicationForm = ({jobId, isOpen, onClose}: JobApplicationFormP
                             <Label htmlFor="fullName">Full Name</Label>
                             <Input
                                 id="fullName"
+                                type="text"
                                 placeholder="John Doe"
                                 aria-required="true"
                             />
