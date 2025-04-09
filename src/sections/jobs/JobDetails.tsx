@@ -53,8 +53,8 @@ export const JobDetails: () => JSX.Element = () => {
         return (
             <nav aria-label="Breadcrumb">
                 <Button
-                    variant="outline"
-                    className="mb-6"
+                    variant="secondary"
+                    className="flex gap-4 mb-6"
                     onClick={() => navigate('/')}
                 >
                     ← <span>Back to Listings</span>
