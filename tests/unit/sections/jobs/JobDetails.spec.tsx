@@ -1,9 +1,10 @@
 import {describe, expect, it, vi} from "vitest";
 import {JobContext, JobContextType} from "@/sections/context/JobContext.tsx";
-import {render, screen, waitFor} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import {JobDetails} from "@/sections/jobs/JobDetails";
 import {JobMother} from "../../modules/jobs/domain/entities/JobMother.ts";
 import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
+import {BrowserRouter as Router} from "react-router-dom";
 
 vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
@@ -63,5 +64,35 @@ describe('JobDetails', () => {
             expect(screen.getByText(renderJobTypeLabel(mockJob.typeValue()))).toBeInTheDocument();
             expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument();
         })
+    })
+    it('should redirect to home when back button is clicked', async () => {
+        const mockRetrievedJob = JobMother.createDefault();
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([
+                mockRetrievedJob
+            ])
+        }
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase,
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        await waitFor(() => {
+            expect(mockGetJobByIdUseCase.execute).toHaveBeenCalled()
+        })
+
+        const applyNowButton = screen.getByText('Back to Listings')
+        act(() => {
+            applyNowButton.click()
+        })
+
+        expect(window.location.pathname).toBe(`/`)
     })
 });
