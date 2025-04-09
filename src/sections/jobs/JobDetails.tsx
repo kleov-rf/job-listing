@@ -11,6 +11,7 @@ export const JobDetails: () => JSX.Element = () => {
     const {id} = useParams<{ id: string }>()
     const [isLoading, setIsLoading] = useState(true);
     const [job, setJob] = useState<Job>();
+    const [hasApplied, setHasApplied] = useState(false);
     const [isApplicationFormShown, setIsApplicationFormShown] = useState(false);
     const {getJobByIdUseCase, getJobApplicationByJobId} = useJobContext();
     const navigate = useNavigate();
@@ -25,7 +26,10 @@ export const JobDetails: () => JSX.Element = () => {
         };
 
         const fetchJobApplications = async () => {
-            await getJobApplicationByJobId.execute(id!);
+            const applications = await getJobApplicationByJobId.execute(id!);
+            if (applications.length) {
+                setHasApplied(true)
+            }
         };
 
         fetchJobs();
@@ -70,7 +74,7 @@ export const JobDetails: () => JSX.Element = () => {
             {renderBackButton()}
             {job ? (
                 <>
-                    <JobDetailsCard job={job} onApply={handleOpenApplicationForm}/>
+                    <JobDetailsCard job={job} hasApplied={hasApplied} onApply={handleOpenApplicationForm}/>
                     <JobApplicationForm isOpen={isApplicationFormShown} onClose={handleCloseApplicationForm}
                                         jobId={job.idValue()}/>
                 </>
