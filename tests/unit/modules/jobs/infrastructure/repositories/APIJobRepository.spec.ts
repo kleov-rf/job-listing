@@ -117,5 +117,30 @@ describe('APIJobRepository', () => {
                 })
             })
         })
+        it('should call to map API response to domain job', async () => {
+            const mockAPIJob = {
+                id: 1,
+                job_title: "Senior Accountant",
+                company: 'Tech Corp',
+                short_location: "Atlanta, GA",
+                employment_statuses: ['Full-time'],
+                company_object: {
+                    long_description: 'Tech Corp is a leading technology company.',
+                }
+            } as APIJobDTO;
+            const mockAPIResponse = {
+                data: [mockAPIJob],
+            } as APIJobsResponseDTO;
+            global.fetch = vi.fn().mockResolvedValue({
+                ok: true,
+                json: vi.fn().mockResolvedValue(mockAPIResponse),
+            })
+            vi.spyOn(JobEntityMapper, 'toDomain')
+            const jobRepository = new APIJobRepository()
+
+            await jobRepository.findById('1')
+
+            expect(JobEntityMapper.toDomain).toHaveBeenCalledWith(mockAPIJob);
+        })
     })
 })
