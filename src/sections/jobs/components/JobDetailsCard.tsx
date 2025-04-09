@@ -13,6 +13,9 @@ export const JobDetailsCard = ({job, onApply, hasApplied}: JobDetailsCardProps) 
     return (
         <Card className="mb-6">
             <CardHeader>
+                {hasApplied && (
+                    <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-green-900 dark:text-green-300">Already applied</span>
+                )}
                 <h2 className="text-2xl font-bold" data-testid="job-details-title">{job.titleValue()}</h2>
                 <p className="text-muted-foreground">
                     <span data-testid="job-details-company">{job.companyNameValue()}</span> •
