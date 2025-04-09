@@ -3,6 +3,10 @@ import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 import {APIJobsResponseDTO} from "@/modules/jobs/infrastructure/dtos/APIJobResponseDTO.ts";
 import {JobEntityMapper} from "@/modules/jobs/infrastructure/mappers/JobEntityMapper.ts";
 
+interface APIOptions {
+    job_id_or?: number[]
+}
+
 export class APIJobRepository implements JobRepository {
     private readonly apiUrl = 'https://api.theirstack.com/v1/jobs/search'
     private readonly apiKey = import.meta.env.VITE_API_KEY
@@ -16,11 +20,12 @@ export class APIJobRepository implements JobRepository {
         return data.map(apiJob => JobEntityMapper.toDomain(apiJob))
     }
 
-    findById(id: string): Promise<Job | null> {
-        throw new Error("Method not implemented.");
+    async findById(id: string): Promise<Job | null> {
+        await this.fetchJobs({ job_id_or: [parseInt(id)] });
+        return null;
     }
 
-    private async fetchJobs(): Promise<Response> {
+    private async fetchJobs(extraOptions: APIOptions = {}): Promise<Response> {
         const defaultOptions = {
             page: 0,
             limit: 25,
@@ -35,7 +40,10 @@ export class APIJobRepository implements JobRepository {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${this.apiKey}`,
             },
-            body: JSON.stringify(defaultOptions),
+            body: JSON.stringify({
+                ...defaultOptions,
+                ...extraOptions,
+            }),
         });
     }
 }
