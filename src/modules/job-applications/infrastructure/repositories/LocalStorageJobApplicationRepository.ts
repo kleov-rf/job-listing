@@ -1,6 +1,7 @@
 import {JobApplicationRepository} from "@/modules/job-applications/domain/repositories/JobApplicationRepository.ts";
 import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {Primitives} from "@codelytv/primitives-type";
+import { JobId } from "@/modules/jobs/domain/value-objects";
 
 export class LocalStorageJobApplicationRepository implements JobApplicationRepository {
     save(jobApplication: JobApplication): Promise<void> {
@@ -12,6 +13,10 @@ export class LocalStorageJobApplicationRepository implements JobApplicationRepos
         localStorage.setItem("job_applications", JSON.stringify(Array.from(jobApplications.entries())));
 
         return Promise.resolve();
+    }
+
+    getByJobId(jobId: JobId): Promise<JobApplication[]> {
+        throw new Error("Method not implemented.");
     }
 
     private getAllFromLocalStorage(): Map<string, Primitives<JobApplication>> {

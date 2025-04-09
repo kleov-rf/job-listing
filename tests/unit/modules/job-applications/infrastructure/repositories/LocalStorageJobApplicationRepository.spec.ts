@@ -38,4 +38,19 @@ describe('LocalStorageJobApplicationRepository', () => {
 
         expect(mockLocalStorage.getItem).toHaveBeenCalledWith('job_applications')
     })
+    it('should call localStorage when retrieving job applications by job id', () => {
+        const mockLocalStorage = {
+            setItem: vi.fn(),
+            getItem: vi.fn().mockReturnValue(JSON.stringify([]))
+        } as unknown as Storage
+        Object.defineProperty(window, "localStorage", {
+            value: mockLocalStorage
+        })
+        const mockJobApplication = JobApplicationMother.createDefault()
+        const repository = new LocalStorageJobApplicationRepository()
+
+        repository.getByJobId(mockJobApplication.jobId)
+
+        expect(mockLocalStorage.getItem).toHaveBeenCalledWith('job_applications')
+    })
 })
