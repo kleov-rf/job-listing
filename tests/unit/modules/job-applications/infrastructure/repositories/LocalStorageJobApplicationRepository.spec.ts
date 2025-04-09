@@ -3,6 +3,7 @@ import {
     LocalStorageJobApplicationRepository
 } from "@/modules/job-applications/infrastructure/repositories/LocalStorageJobApplicationRepository.ts";
 import {JobApplicationMother} from "../../domain/entities/JobApplicationMother.ts";
+import {JobId} from "@/modules/jobs/domain/value-objects";
 
 describe('LocalStorageJobApplicationRepository', () => {
     it('should call localStorage to save job application', () => {
@@ -72,5 +73,24 @@ describe('LocalStorageJobApplicationRepository', () => {
         const jobApplications = await repository.getByJobId(mockJobApplication.jobId)
 
         expect(jobApplications).toEqual([mockJobApplication])
+    })
+    it('should return empty array when no job applications found by job id', async () => {
+        const mockJobApplication = JobApplicationMother.createDefault()
+        const mockLocalStorage = {
+            setItem: vi.fn(),
+            getItem: vi.fn().mockReturnValue(
+                JSON.stringify(
+                    Array.from(new Map().set(mockJobApplication.jobIdValue(), mockJobApplication.toPrimitives()).entries())
+                )
+            )
+        } as unknown as Storage
+        Object.defineProperty(window, "localStorage", {
+            value: mockLocalStorage
+        })
+        const repository = new LocalStorageJobApplicationRepository()
+
+        const jobApplications = await repository.getByJobId(new JobId('non-existing-job-id'))
+
+        expect(jobApplications).toEqual([])
     })
 })
