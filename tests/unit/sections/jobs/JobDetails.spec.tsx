@@ -23,7 +23,7 @@ describe('JobDetails', () => {
         const mockJobContext = {
             getJobByIdUseCase: mockGetJobByIdUseCase,
             getJobApplicationByJobId: {
-                execute: vi.fn()
+                execute: vi.fn().mockResolvedValue([])
             }
         } as unknown as JobContextType
 
@@ -51,7 +51,7 @@ describe('JobDetails', () => {
         const mockJobContext = {
             getJobByIdUseCase: mockGetJobByIdUseCase,
             getJobApplicationByJobId: {
-                execute: vi.fn()
+                execute: vi.fn().mockResolvedValue([])
             }
         } as unknown as JobContextType
 
@@ -82,7 +82,7 @@ describe('JobDetails', () => {
         const mockJobContext = {
             getJobByIdUseCase: mockGetJobByIdUseCase,
             getJobApplicationByJobId: {
-                execute: vi.fn()
+                execute: vi.fn().mockResolvedValue([])
             }
         } as unknown as JobContextType
 
@@ -105,7 +105,7 @@ describe('JobDetails', () => {
         const mockJobContext = {
             getJobByIdUseCase: mockGetJobByIdUseCase,
             getJobApplicationByJobId: {
-                execute: vi.fn()
+                execute: vi.fn().mockResolvedValue([])
             }
         } as unknown as JobContextType
 
@@ -133,7 +133,7 @@ describe('JobDetails', () => {
         const mockJobContext = {
             getJobByIdUseCase: mockGetJobByIdUseCase,
             getJobApplicationByJobId: {
-                execute: vi.fn()
+                execute: vi.fn().mockResolvedValue([])
             }
         } as unknown as JobContextType
 
