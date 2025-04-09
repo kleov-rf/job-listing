@@ -4,6 +4,7 @@ import {JobCard} from "@/sections/jobs/components/JobCard.tsx";
 import {JobType} from "@/modules/jobs/domain/value-objects";
 import {JobTypeOptions, JobTypeSelect} from "@/sections/jobs/components/JobTypeSelect.tsx";
 import {JobSearchInput} from "@/sections/jobs/components/JobSearchInput.tsx";
+import { motion } from "framer-motion";
 
 interface JobListProps {
     jobs: Job[];
@@ -42,6 +43,17 @@ export const JobList: FC<JobListProps> = ({jobs}) => {
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
                 {jobCards}
             </ul>
+            {filteredJobs.length === 0 && (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="pt-8 text-center text-muted-foreground"
+                    role="status"
+                    aria-live="polite"
+                >
+                    No jobs found matching your criteria.
+                </motion.div>
+            )}
         </section>
     );
 }
