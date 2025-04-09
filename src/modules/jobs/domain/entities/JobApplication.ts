@@ -44,7 +44,7 @@ export class JobApplication {
         return this.cvUrl.getValue()
     }
 
-    jobIdValue() {
-        throw new Error("Method not implemented.");
+    jobIdValue(): string {
+        return this.jobId.getValue()
     }
 }
