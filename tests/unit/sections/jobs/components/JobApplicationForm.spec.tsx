@@ -15,8 +15,10 @@ vi.mock("uuid", () => {
 
 describe('JobApplicationForm', () => {
     it('should call to submit application', async () => {
+        const mockJobId = '1'
         const mockJobApplication = JobApplicationMother.createWithCustomValues({
-            id: '1234-5678-9101-1121'
+            id: '1234-5678-9101-1121',
+            jobId: mockJobId
         });
         const mockSubmitApplicationUseCase = {
             execute: vi.fn()
@@ -25,8 +27,6 @@ describe('JobApplicationForm', () => {
         const mockJobContext = {
             submitApplicationUseCase: mockSubmitApplicationUseCase
         } as unknown as JobContextType
-
-        const mockJobId = '1'
 
         render(
             <JobContext.Provider value={mockJobContext}>
@@ -50,6 +50,6 @@ describe('JobApplicationForm', () => {
             expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalled();
         })
 
-        expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalledWith(mockJobApplication, mockJobId);
+        expect(mockSubmitApplicationUseCase.execute).toHaveBeenCalledWith(mockJobApplication.toPrimitives());
     })
 })
