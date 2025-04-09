@@ -142,4 +142,34 @@ describe('JobDetails', () => {
 
         expect(screen.getByText("Sorry! We couldn't find this job.")).toBeInTheDocument()
     })
+    it('should show application form modal when clicking on "Apply Now"', async () => {
+        const mockRetrievedJob = JobMother.createDefault();
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([
+                mockRetrievedJob
+            ])
+        }
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase,
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        await waitFor(() => {
+            expect(mockGetJobByIdUseCase.execute).toHaveBeenCalled()
+        })
+
+        const applyNowButton = screen.getByText('Apply Now')
+        act(() => {
+            applyNowButton.click()
+        })
+
+        expect(screen.getByText('Apply for this position')).toBeInTheDocument()
+    })
 });
