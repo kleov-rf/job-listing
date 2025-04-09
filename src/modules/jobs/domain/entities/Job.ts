@@ -60,6 +60,6 @@ export class Job {
     }
 
     matchesSearch(jobTitle: string) {
-        return this.title.getValue() === jobTitle
+        return this.title.getValue().includes(jobTitle)
     }
 }
