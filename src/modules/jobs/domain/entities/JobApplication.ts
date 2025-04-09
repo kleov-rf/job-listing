@@ -32,7 +32,7 @@ export class JobApplication {
         return this.name.getValue()
     }
 
-    emailValue() {
-        throw new Error("Method not implemented.")
+    emailValue(): string {
+        return this.email.getValue()
     }
 }
