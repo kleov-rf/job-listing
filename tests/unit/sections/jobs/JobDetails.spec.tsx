@@ -95,4 +95,24 @@ describe('JobDetails', () => {
 
         expect(window.location.pathname).toBe(`/`)
     })
+    it('should show skeleton while loading', async () => {
+        const mockGetJobByIdUseCase = {
+            execute: vi.fn().mockResolvedValue([])
+        }
+
+        const mockJobContext = {
+            getJobByIdUseCase: mockGetJobByIdUseCase
+        } as unknown as JobContextType
+
+        render(
+            <Router>
+                <JobContext.Provider value={mockJobContext}>
+                    <JobDetails/>
+                </JobContext.Provider>
+            </Router>
+        )
+
+        const skeletonLoader = screen.getByRole('status')
+        expect(skeletonLoader).toBeInTheDocument()
+    })
 });
