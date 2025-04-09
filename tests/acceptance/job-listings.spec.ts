@@ -139,20 +139,24 @@ test.describe('Job Listings', () => {
     const jobCards = page.locator('[data-testid="job-card"]')
     const firstJobCard = jobCards.first()
     const applyButton = firstJobCard.locator('button:has-text("Apply Now")')
+    await applyButton.waitFor({ state: 'visible' })
     await applyButton.click()
 
     await page.waitForLoadState('networkidle');
 
-    const applyForPositionButton = firstJobCard.locator('button:has-text("Apply Now")')
+    const applyForPositionButton = page.locator('button:has-text("Apply Now")')
     await applyForPositionButton.click()
 
     const nameInput = page.locator('input[type="text"]')
+    await nameInput.waitFor({ state: 'visible' })
     await nameInput.fill('John Doe')
 
     const emailInput = page.locator('input[type="email"]')
+    await emailInput.waitFor({ state: 'visible' })
     await emailInput.fill('john.doe@gmail.com')
 
     const resumeInput = page.locator('input[type="url"]')
+    await resumeInput.waitFor({ state: 'visible' })
     await resumeInput.fill('https://example.com/resume.pdf')
 
     const submitButton = page.locator('button:has-text("Submit application")')
