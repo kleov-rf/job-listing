@@ -4,11 +4,12 @@ import {renderJobTypeLabel} from "@/sections/jobs/utils/renderJobTypeLabel.ts";
 import {Job} from "@/modules/jobs/domain/entities/Job.ts";
 
 interface JobDetailsCardProps {
-    job: Job
-    onApply: () => void
+    job: Job,
+    onApply: () => void,
+    hasApplied?: boolean
 }
 
-export const JobDetailsCard = ({job, onApply}: JobDetailsCardProps) => {
+export const JobDetailsCard = ({job, onApply, hasApplied}: JobDetailsCardProps) => {
     return (
         <Card className="mb-6">
             <CardHeader>

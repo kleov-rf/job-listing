@@ -16,4 +16,9 @@ describe('JobDetails', () => {
         expect(screen.getByText(renderJobTypeLabel(mockJob.typeValue()))).toBeInTheDocument();
         expect(screen.getByText(mockJob.descriptionValue())).toBeInTheDocument();
     })
+    it('should display already applied badge if has applied', async () => {
+        render(<JobDetailsCard job={JobMother.createDefault()} onApply={vi.fn()} hasApplied={true}/>)
+
+        expect(screen.getByText(/Already applied/i)).toBeInTheDocument();
+    })
 })
