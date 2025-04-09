@@ -6,6 +6,7 @@ import {useJobContext} from "@/sections/context/JobContext.tsx";
 import {JobApplication} from "@/modules/job-applications/domain/entities/JobApplication.ts";
 import {v4 as uuidv4} from "uuid";
 import {Primitives} from "@codelytv/primitives-type";
+import {FormEvent} from "react";
 
 interface JobApplicationFormProps {
     jobId: string;
@@ -16,7 +17,8 @@ interface JobApplicationFormProps {
 export const JobApplicationForm = ({jobId, isOpen, onClose}: JobApplicationFormProps) => {
     const { submitApplicationUseCase } = useJobContext()
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault()
         const jobApplication = {
             id: uuidv4().toString(),
             name: 'John Doe',
